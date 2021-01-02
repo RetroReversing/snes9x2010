@@ -480,8 +480,10 @@ else
 endif
 
 include $(BUILD_DIR)/Makefile.common
+libRetroReversingConsole = SNES
+include ./libRetroReversing/Makefile.retroreversing
 
-OBJECTS := $(SOURCES_C:.c=.o)
+OBJECTS := $(SOURCES_C:.c=.o) $(SOURCES_CXX:.cpp=.cpp.o)
 
 DEFINES = $(COREDEFINES)
 
@@ -541,6 +543,8 @@ endif
 
 %.o: %.c
 	+$(CC) $(INCFLAGS) $(CFLAGS) -c $(OBJOUT)$@ $<
+%.cpp.o: %.cpp
+	+$(CXX) $(INCFLAGS) $(CXXFLAGS) -c $(OBJOUT)$@ $<
 
 clean-objs:
 	rm -rf $(OBJECTS)
