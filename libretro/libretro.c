@@ -193,6 +193,8 @@
 #include <libretro.h>
 #include "libretro_core_options.h"
 
+#include "../libRetroReversing/include/libRR_c.h"
+
 #ifdef _3DS
 void* linearMemAlign(size_t size, size_t alignment);
 void linearFree(void* mem);
@@ -245,7 +247,7 @@ enum
 static retro_log_printf_t		log_cb = NULL;
 retro_video_refresh_t		video_cb = NULL;
 static retro_input_poll_t			poll_cb = NULL;
-static retro_input_state_t		input_cb = NULL;
+static retro_input_state_t		original_input_state_cb = NULL;
 static retro_audio_sample_batch_t			audio_batch_cb = NULL;
 static retro_environment_t		environ_cb = NULL;
 
@@ -509,7 +511,7 @@ void retro_set_video_refresh(retro_video_refresh_t cb) { video_cb = cb; }
 void retro_set_audio_sample(retro_audio_sample_t cb) { (void) cb; }
 void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) { audio_batch_cb = cb; }
 void retro_set_input_poll(retro_input_poll_t cb) { poll_cb = cb; }
-void retro_set_input_state(retro_input_state_t cb) { input_cb = cb; }
+void retro_set_input_state(retro_input_state_t cb) { original_input_state_cb = cb; }
 
 void retro_set_environment(retro_environment_t cb)
 {
@@ -780,6 +782,7 @@ void retro_init(void)
 	environ_cb(RETRO_ENVIRONMENT_SET_SUPPORT_ACHIEVEMENTS, &achievements);
 
 	rgb565 = RETRO_PIXEL_FORMAT_RGB565;
+	libRR_core_pixel_format = RETRO_PIXEL_FORMAT_RGB565;
 	if (environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &rgb565))
 		S9xMessage(S9X_MSG_INFO, S9X_CATEGORY_EXTERNAL, "Frontend supports RGB565 - will use that instead of XRGB1555.");
 
@@ -903,6 +906,10 @@ static void report_buttons(void)
 {
 	uint32_t i, port;
 	int16_t ret;
+
+	//libRR start
+  retro_input_state_t input_cb = libRR_handle_input(original_input_state_cb);
+  // libRR end
 
 	for (port = 0; port < 2; port++)
 	{
@@ -1065,6 +1072,14 @@ void retro_run(void)
 	int result = -1;
 	bool okay = false;
 	bool updated = false;
+
+	// libRR start
+   bool should_continue = libRR_run_frame();
+   if (!should_continue)
+   {
+      return;
+   }
+	// libRR end
 
 	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &updated) && updated)
 	{
@@ -1257,6 +1272,7 @@ static void init_descriptors(void)
 		describe_buttons(4)
 		{ 0, 0, 0, 0, NULL }
 	};
+	libRR_setInputDescriptor(desc, 14);
 	environ_cb(RETRO_ENVIRONMENT_SET_INPUT_DESCRIPTORS, desc);
 }
 
@@ -1292,6 +1308,11 @@ bool retro_load_game(const struct retro_game_info *game)
 
 	set_system_specs();
 	environ_cb(RETRO_ENVIRONMENT_SET_MEMORY_MAPS, &map);
+	libRR_set_retro_memmap(map.descriptors, map.num_descriptors);
+
+	// libRR start
+	libRR_handle_load_game(game, environ_cb);
+	// libRR end
 
 	return TRUE;
 }
@@ -1305,7 +1326,9 @@ bool retro_load_game_special(unsigned game_type, const struct retro_game_info *i
 	return false;
 }
 
-void retro_unload_game (void) { }
+void retro_unload_game (void) {
+	libRR_handle_emulator_close();
+ }
 
 unsigned retro_get_region (void)
 {
@@ -1325,11 +1348,11 @@ void S9xDeinitUpdate(int width, int height)
 		else
 			snes_ntsc_blit(&snes_ntsc, GFX.Screen, GFX.Pitch / 2, burst_phase, width, height, ntsc_screen_buffer, GFX.Pitch);
 
-		video_cb(ntsc_screen_buffer, SNES_NTSC_OUT_WIDTH(width), height, GFX.Pitch);
+		libRR_video_cb(ntsc_screen_buffer, SNES_NTSC_OUT_WIDTH(width), height, GFX.Pitch);
 	}
 	else
 		/* GFX.Pitch = width * 2; */
-		video_cb(GFX.Screen, width, height, GFX.Pitch);
+		libRR_video_cb(GFX.Screen, width, height, GFX.Pitch);
 }
 
 /* Dummy functions that should probably be implemented correctly later. */

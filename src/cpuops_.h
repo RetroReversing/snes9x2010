@@ -2873,6 +2873,7 @@ void S9xOpcode_NMI (void)
 
 static void Op02 (void)
 {
+	// printf("COP 0x02\n");
 	uint16 addr;
 	AddCycles(CPU.MemSpeed);
 
@@ -2959,12 +2960,13 @@ static void Op7CSlow (void)
 }
 
 /* JSL/RTL ***************************************************************** */
-
+// JSL - Jump to Subroutine
 static void Op22E1 (void)
 {
 	/* Note: JSL is a new instruction,*/
 	/* and so doesn't respect the emu-mode stack bounds.*/
 	uint32	addr = AbsoluteLong(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	PushB(Registers.PB);
 	PushW(Registers.PCw - 1);
 	Registers.SH = 1;
@@ -2974,6 +2976,7 @@ static void Op22E1 (void)
 static void Op22E0 (void)
 {
 	uint32	addr = AbsoluteLong(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	PushB(Registers.PB);
 	PushW(Registers.PCw - 1);
 	S9xSetPCBase(addr);
@@ -2982,6 +2985,8 @@ static void Op22E0 (void)
 static void Op22Slow (void)
 {
 	uint32	addr = AbsoluteLongSlow(JSR);
+	printf("PB: %d\n", Registers.PB);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	PushB(Registers.PB);
 	PushW(Registers.PCw - 1);
 	if (CheckEmulation())
@@ -2989,6 +2994,7 @@ static void Op22Slow (void)
 	S9xSetPCBase(addr);
 }
 
+// op6B = RTL
 static void Op6BE1 (void)
 {
 	/* Note: RTL is a new instruction,*/
@@ -3022,10 +3028,11 @@ static void Op6BSlow (void)
 }
 
 /* JSR/RTS ***************************************************************** */
-
+// JSR - Jump to Subroutine
 static void Op20E1 (void)
 {
 	uint16	addr = ABSOLUTE_MACRO(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	AddCycles(ONE_CYCLE);
 	PushWE(Registers.PCw - 1);
 	S9xSetPCBase(ICPU.ShiftedPB + addr);
@@ -3034,6 +3041,7 @@ static void Op20E1 (void)
 static void Op20E0 (void)
 {
 	uint16	addr = ABSOLUTE_MACRO(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	AddCycles(ONE_CYCLE);
 	PushW(Registers.PCw - 1);
 	S9xSetPCBase(ICPU.ShiftedPB + addr);
@@ -3042,6 +3050,7 @@ static void Op20E0 (void)
 static void Op20Slow (void)
 {
 	uint16	addr = ABSOLUTESLOW_MACRO(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 
 	AddCycles(ONE_CYCLE);
 
@@ -3062,6 +3071,7 @@ static void OpFCE1 (void)
 	/* Note: JSR (a,X) is a new instruction,*/
 	/* and so doesn't respect the emu-mode stack bounds.*/
 	uint16	addr = AbsoluteIndexedIndirect(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	PushW(Registers.PCw - 1);
 	Registers.SH = 1;
 	S9xSetPCBase(ICPU.ShiftedPB + addr);
@@ -3070,6 +3080,7 @@ static void OpFCE1 (void)
 static void OpFCE0 (void)
 {
 	uint16	addr = AbsoluteIndexedIndirect(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	PushW(Registers.PCw - 1);
 	S9xSetPCBase(ICPU.ShiftedPB + addr);
 }
@@ -3077,12 +3088,14 @@ static void OpFCE0 (void)
 static void OpFCSlow (void)
 {
 	uint16	addr = AbsoluteIndexedIndirectSlow(JSR);
+	libRR_log_function_call(Registers.PCw - 1, addr, 0x00);
 	PushW(Registers.PCw - 1);
 	if (CheckEmulation())
 		Registers.SH = 1;
 	S9xSetPCBase(ICPU.ShiftedPB + addr);
 }
 
+// OP60 = RTS
 static void Op60E1 (void)
 {
 	AddCycles(TWO_CYCLES);

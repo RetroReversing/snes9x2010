@@ -190,6 +190,8 @@
 #include "bsx.h"
 #include "port.h"
 
+#include "../libRetroReversing/include/libRR_c.h"
+
 extern uint8	OpenBus;
 
 uint8 S9xGetByteFromRegister(uint8 *GetAddress, uint32 Address);
@@ -825,8 +827,10 @@ static INLINE void S9xSetPCBase (uint32 Address)
 	int block;
 	uint8 *GetAddress;
 
+	// PB = program Bank
 	Registers.PBPC = Address & 0xffffff;
 	ICPU.ShiftedPB = Address & 0xff0000;
+	libRR_current_bank_slot_0 = Registers.PB;
 
 	block = ((Address & 0xffffff) >> MEMMAP_SHIFT);
 	GetAddress = Memory.Map[block];
