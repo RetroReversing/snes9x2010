@@ -213,6 +213,11 @@ static INLINE uint8 S9xGetByte (uint32 Address)
 	#endif
 		byte = *(GetAddress + (Address & 0xffff));
 		addCyclesInMemoryAccess;
+		int bank = get_current_bank_number_for_address(Address);
+		if (bank > -1 && Memory.BlockIsROM[block]) {
+			unsigned char bytes = byte;
+			libRR_log_rom_read(bank, (Address & 0xffff), "", 1, &bytes);
+		}
 		return (byte);
 	}
 
@@ -260,12 +265,14 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
 			CPU.WaitAddress = CPU.PBPCAtOpcodeStart;
 	#endif
 		word = READ_WORD(GetAddress + (Address & 0xffff));
+		// TODO: maybe READ_WORD
 		addCyclesInMemoryAccess_x2;
 		return (word);
 	}
 
 	switch ((intptr_t) GetAddress)
 	{
+		// CPU specific registers
 		case MAP_CPU:
 			word  = S9xGetCPU(Address & 0xffff);
 			addCyclesInMemoryAccess;
@@ -273,6 +280,7 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
 			addCyclesInMemoryAccess;
          break;
 
+		// PPU registers
 		case MAP_PPU:
 			if (CPU.InDMAorHDMA)
 			{
@@ -286,6 +294,7 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
 			addCyclesInMemoryAccess;
          break;
 
+		// Save Ram
 		case MAP_LOROM_SRAM:
 		case MAP_SA1RAM:
 			if (Memory.SRAMMask >= MEMMAP_MASK)
@@ -328,6 +337,7 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
          break;
 
 		case MAP_SPC7110_ROM:
+			printf("MAP_SPC7110_ROM address:%d \n", Address);
 			word  = S9xGetSPC7110Byte(Address);
 			addCyclesInMemoryAccess;
 			word |= S9xGetSPC7110Byte(Address + 1) << 8;

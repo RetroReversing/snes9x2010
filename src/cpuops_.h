@@ -200,14 +200,14 @@
 static void Op69M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "adc %int%", 0x69, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "adc #%int%", 0x69, 2, libRR_temp);
 	ADC8(libRR_temp);
 }
 
 static void Op69M0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 1, "adc %int%", 0x69, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 1, "adc.w #%int%", 0x69, 3, libRR_temp);
 	ADC16(libRR_temp);
 }
 
@@ -292,7 +292,7 @@ static void Op29M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	Registers.AL &= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "AND %int%", 0x29, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "AND #%int%", 0x29, 2, libRR_temp);
 	SetZN8(Registers.AL);
 }
 
@@ -300,7 +300,7 @@ static void Op29M0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
 	Registers.A.W &= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "AND %int%", 0x29, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "AND.W #%int%", 0x29, 3, libRR_temp);
 	SetZN16(Registers.A.W);
 }
 
@@ -310,14 +310,14 @@ static void Op29Slow (void)
 	{
 		uint32 libRR_temp = Immediate8Slow(READ);
 		Registers.AL &= libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "AND %int%", 0x29, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "AND #%int%", 0x29, 2, libRR_temp);
 		SetZN8(Registers.AL);
 	}
 	else
 	{
 		uint32 libRR_temp = Immediate16Slow(READ);
 		Registers.A.W &= libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 3, "AND %int%", 0x29, 3, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "AND.W #%int%", 0x29, 3, libRR_temp);
 		SetZN16(Registers.A.W);
 	}
 }
@@ -450,19 +450,21 @@ libRR_mOPM("asl, mopM", 1ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, A
 
 static void Op89M1 (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "BIT", 0x89, 1);
-	ICPU._Zero = Registers.AL & Immediate8(READ);
+	uint32 libRR_temp = Immediate8(READ);
+	libRR_log_instruction_1int(Registers.PCw - 2, "BIT #%int%", 0x89, 2, libRR_temp);
+	ICPU._Zero = Registers.AL & libRR_temp;
 }
 
 static void Op89M0 (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "BIT", 0x89, 1);
-	ICPU._Zero = (Registers.A.W & Immediate16(READ)) != 0;
+	uint32 libRR_temp = Immediate16(READ);
+	libRR_log_instruction_1int(Registers.PCw - 3, "BIT.W #%int%", 0x89, 3, libRR_temp);
+	ICPU._Zero = (Registers.A.W & libRR_temp) != 0;
 }
 
 static void Op89Slow (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "BIT", 0x89, 1);
+	libRR_log_instruction(Registers.PCw - 1, "BIT Slow", 0x89, 1);
 	if (CheckMemory())
 		ICPU._Zero = Registers.AL & Immediate8Slow(READ);
 	else
@@ -496,7 +498,7 @@ static void OpC9M1 (void)
 
 	uint32 libRR_temp = Immediate8(READ);
 	Int16 = (int16) Registers.AL - (int16) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "CMP %int%", 0xC9, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "CMP #%int%", 0xC9, 2, libRR_temp);
 	ICPU._Carry = Int16 >= 0;
 	SetZN8((uint8) Int16);
 }
@@ -506,7 +508,7 @@ static void OpC9M0 (void)
 	int32 Int32;
 	uint32 libRR_temp = Immediate16(READ);
 	Int32 = (int32) Registers.A.W - (int32) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "CMP %int%", 0xC9, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "CMP.W #%int%", 0xC9, 3, libRR_temp);
 	ICPU._Carry = Int32 >= 0;
 	SetZN16((uint16) Int32);
 }
@@ -517,7 +519,7 @@ static void OpC9Slow (void)
 	{
 		uint32 libRR_temp = Immediate8(READ);
 		int16	Int16 = (int16) Registers.AL - (int16) libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "CMP %int%", 0xC9, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "CMP #%int%", 0xC9, 2, libRR_temp);
 		ICPU._Carry = Int16 >= 0;
 		SetZN8((uint8) Int16);
 	}
@@ -525,7 +527,7 @@ static void OpC9Slow (void)
 	{
 		uint32 libRR_temp = Immediate16(READ);
 		int32	Int32 = (int32) Registers.A.W - (int32) Immediate16Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 3, "CMP %int%", 0xC9, 3, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "CMP.W #%int%", 0xC9, 3, libRR_temp);
 		ICPU._Carry = Int32 >= 0;
 		SetZN16((uint16) Int32);
 	}
@@ -603,7 +605,7 @@ static void OpE0X1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	int16	Int16 = (int16) Registers.XL - (int16) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "CPX %int%", 0xE0, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "CPX #%int%", 0xE0, 2, libRR_temp);
 	ICPU._Carry = Int16 >= 0;
 	SetZN8((uint8) Int16);
 }
@@ -612,7 +614,7 @@ static void OpE0X0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
 	int32	Int32 = (int32) Registers.X.W - (int32) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "CPX %int%", 0xE0, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "CPX.W #%int%", 0xE0, 3, libRR_temp);
 	ICPU._Carry = Int32 >= 0;
 	SetZN16((uint16) Int32);
 }
@@ -623,7 +625,7 @@ static void OpE0Slow (void)
 	{
 		uint32 libRR_temp = Immediate8Slow(READ);
 		int16	Int16 = (int16) Registers.XL - (int16) libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "CPX %int%", 0xE0, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "CPX #%int%", 0xE0, 2, libRR_temp);
 		ICPU._Carry = Int16 >= 0;
 		SetZN8((uint8) Int16);
 	}
@@ -631,7 +633,7 @@ static void OpE0Slow (void)
 	{
 		uint32 libRR_temp = Immediate16Slow(READ);
 		int32	Int32 = (int32) Registers.X.W - (int32) libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 3, "CPX %int%", 0xE0, 3, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "CPX.W #%int%", 0xE0, 3, libRR_temp);
 		ICPU._Carry = Int32 >= 0;
 		SetZN16((uint16) Int32);
 	}
@@ -651,7 +653,7 @@ static void OpC0X1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	int16	Int16 = (int16) Registers.YL - (int16) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "CPY %int%", 0xC0, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "CPY #%int%", 0xC0, 2, libRR_temp);
 	ICPU._Carry = Int16 >= 0;
 	SetZN8((uint8) Int16);
 }
@@ -660,7 +662,7 @@ static void OpC0X0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
 	int32	Int32 = (int32) Registers.Y.W - (int32) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "CPY %int%", 0xC0, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "CPY.W #%int%", 0xC0, 3, libRR_temp);
 	ICPU._Carry = Int32 >= 0;
 	SetZN16((uint16) Int32);
 }
@@ -671,7 +673,7 @@ static void OpC0Slow (void)
 	{
 		uint32 libRR_temp = Immediate8Slow(READ);
 		int16	Int16 = (int16) Registers.YL - (int16) libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "CPY %int%", 0xC0, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "CPY #%int%", 0xC0, 2, libRR_temp);
 		ICPU._Carry = Int16 >= 0;
 		SetZN8((uint8) Int16);
 	}
@@ -679,7 +681,7 @@ static void OpC0Slow (void)
 	{
 		uint32 libRR_temp = Immediate16Slow(READ);
 		int32	Int32 = (int32) Registers.Y.W - (int32) libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 3, "CPY %int%", 0xC0, 3, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "CPY.W #%int%", 0xC0, 3, libRR_temp);
 		ICPU._Carry = Int32 >= 0;
 		SetZN16((uint16) Int32);
 	}
@@ -754,7 +756,7 @@ static void Op49M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	Registers.AL ^= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "EOR %int%", 0x49, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "EOR #%int%", 0x49, 2, libRR_temp);
 	SetZN8(Registers.AL);
 }
 
@@ -762,7 +764,7 @@ static void Op49M0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
 	Registers.A.W ^= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "EOR %int%", 0x49, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "EOR.W #%int%", 0x49, 3, libRR_temp);
 	SetZN16(Registers.A.W);
 }
 
@@ -772,14 +774,14 @@ static void Op49Slow (void)
 	{
 		uint32 libRR_temp = Immediate8Slow(READ);
 		Registers.AL ^= libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "EOR %int%", 0x49, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "EOR #%int%", 0x49, 2, libRR_temp);
 		SetZN8(Registers.AL);
 	}
 	else
 	{
 		uint32 libRR_temp = Immediate16(READ);
 		Registers.A.W ^= libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 3, "EOR %int%", 0x49, 3, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "EOR.W #%int%", 0x49, 3, libRR_temp);
 		SetZN16(Registers.A.W);
 	}
 }
@@ -910,20 +912,20 @@ libRR_mOPM("inc mopM", FESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, IN
 static void OpA9M1 (void)
 {
 	Registers.AL = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "LDA %int%", 0xA9, S9xOpLengthsM1X0[0xA9], Registers.AL);
+	libRR_log_instruction_1int(Registers.PCw - 2, "LDA #%int%; Immediate8", 0xA9, S9xOpLengthsM1X0[0xA9], Registers.AL);
 	SetZN8(Registers.AL);
 }
 
 static void OpA9M0 (void)
 {
 	Registers.A.W = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 3, "LDA %int%", 0xA9, S9xOpLengthsM0X0[0xA9], Registers.A.W);
+	libRR_log_instruction_1int(Registers.PCw - 3, "LDA.W #%int% ; Immediate16", 0xA9, S9xOpLengthsM0X0[0xA9], Registers.A.W);
 	SetZN16(Registers.A.W);
 }
 
 static void OpA9Slow (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "LDA Slow", 0xA9, ICPU.S9xOpLengths[0xA9]);
+	libRR_log_instruction(Registers.PCw - 1, "LDA #%int% ;Slow", 0xA9, ICPU.S9xOpLengths[0xA9]);
 	if (CheckMemory())
 	{
 		Registers.AL = Immediate8Slow(READ);
@@ -938,83 +940,84 @@ static void OpA9Slow (void)
 
 libRR_rOP8("lda ", A5M1,     Direct,                           WRAP_BANK, LDA)
 libRR_rOP16("lda ", A5M0,     Direct,                           WRAP_BANK, LDA16)
-libRR_rOPM("ropM", A5Slow,   DirectSlow,                       WRAP_BANK, LDA)
+libRR_rOPM("lda ropM", A5Slow,   DirectSlow,                       WRAP_BANK, LDA)
 
 libRR_rOP8("lda ", B5E1,     DirectIndexedXE1,                 WRAP_BANK, LDA)
 libRR_rOP8("lda ", B5E0M1,   DirectIndexedXE0,                 WRAP_BANK, LDA)
 libRR_rOP16("lda ", B5E0M0,   DirectIndexedXE0,                 WRAP_BANK, LDA16)
-libRR_rOPM("ropM", B5Slow,   DirectIndexedXSlow,               WRAP_BANK, LDA)
+libRR_rOPM("lda ropM", B5Slow,   DirectIndexedXSlow,               WRAP_BANK, LDA)
 
 libRR_rOP8("lda ", B2E1,     DirectIndirectE1,                 WRAP_NONE, LDA)
 libRR_rOP8("lda ", B2E0M1,   DirectIndirectE0,                 WRAP_NONE, LDA)
 libRR_rOP16("lda ", B2E0M0,   DirectIndirectE0,                 WRAP_NONE, LDA16)
-libRR_rOPM("ropM", B2Slow,   DirectIndirectSlow,               WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", B2Slow,   DirectIndirectSlow,               WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", A1E1,     DirectIndexedIndirectE1,          WRAP_NONE, LDA)
 libRR_rOP8("lda ", A1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, LDA)
 libRR_rOP16("lda ", A1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, LDA16)
-libRR_rOPM("ropM", A1Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", A1Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", B1E1,     DirectIndirectIndexedE1,          WRAP_NONE, LDA)
 libRR_rOP8("lda ", B1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, LDA)
 libRR_rOP16("lda ", B1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, LDA16)
 libRR_rOP8("lda ", B1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, LDA)
 libRR_rOP16("lda ", B1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, LDA16)
-libRR_rOPM("ropM", B1Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", B1Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", A7M1,     DirectIndirectLong,               WRAP_NONE, LDA)
 libRR_rOP16("lda ", A7M0,     DirectIndirectLong,               WRAP_NONE, LDA16)
-libRR_rOPM("ropM", A7Slow,   DirectIndirectLongSlow,           WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", A7Slow,   DirectIndirectLongSlow,           WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", B7M1,     DirectIndirectIndexedLong,        WRAP_NONE, LDA)
 libRR_rOP16("lda ", B7M0,     DirectIndirectIndexedLong,        WRAP_NONE, LDA16)
-libRR_rOPM("ropM", B7Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", B7Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", ADM1,     Absolute,                         WRAP_NONE, LDA)
 libRR_rOP16("lda ", ADM0,     Absolute,                         WRAP_NONE, LDA16)
-libRR_rOPM("ropM", ADSlow,   AbsoluteSlow,                     WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", ADSlow,   AbsoluteSlow,                     WRAP_NONE, LDA)
 
+//TODO: sort out AbsoluteIndexedXX1 ,X in rOP8
 libRR_rOP8("lda ", BDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, LDA)
 libRR_rOP16("lda ", BDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, LDA16)
 libRR_rOP8("lda ", BDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, LDA)
 libRR_rOP16("lda ", BDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, LDA16)
-libRR_rOPM("ropM", BDSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", BDSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", B9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, LDA)
 libRR_rOP16("lda ", B9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, LDA16)
 libRR_rOP8("lda ", B9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, LDA)
 libRR_rOP16("lda ", B9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, LDA16)
-libRR_rOPM("ropM", B9Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", B9Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", AFM1,     AbsoluteLong,                     WRAP_NONE, LDA)
 libRR_rOP16("lda ", AFM0,     AbsoluteLong,                     WRAP_NONE, LDA16)
-libRR_rOPM("ropM", AFSlow,   AbsoluteLongSlow,                 WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", AFSlow,   AbsoluteLongSlow,                 WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", BFM1,     AbsoluteLongIndexedX,             WRAP_NONE, LDA)
 libRR_rOP16("lda ", BFM0,     AbsoluteLongIndexedX,             WRAP_NONE, LDA16)
-libRR_rOPM("ropM", BFSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", BFSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", A3M1,     StackRelative,                    WRAP_NONE, LDA)
 libRR_rOP16("lda ", A3M0,     StackRelative,                    WRAP_NONE, LDA16)
-libRR_rOPM("ropM", A3Slow,   StackRelativeSlow,                WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", A3Slow,   StackRelativeSlow,                WRAP_NONE, LDA)
 
 libRR_rOP8("lda ", B3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, LDA)
 libRR_rOP16("lda ", B3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, LDA16)
-libRR_rOPM("ropM", B3Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, LDA)
+libRR_rOPM("lda ropM", B3Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, LDA)
 
 /* LDX ********************************************************************* */
 
 static void OpA2X1 (void)
 {
 	Registers.XL = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "LDX %int%", 0xA2, 2, Registers.XL);
+	libRR_log_instruction_1int(Registers.PCw - 2, "LDX #%int%", 0xA2, 2, Registers.XL);
 	SetZN8(Registers.XL);
 }
 
 static void OpA2X0 (void)
 {
 	Registers.X.W = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 3, "LDX %int%", 0xA2, 3, Registers.X.W);
+	libRR_log_instruction_1int(Registers.PCw - 3, "LDX.W #%int%", 0xA2, 3, Registers.X.W);
 	SetZN16(Registers.X.W);
 }
 
@@ -1023,13 +1026,13 @@ static void OpA2Slow (void)
 	if (CheckIndex())
 	{
 		Registers.XL = Immediate8Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 2, "LDX %int%", 0xA2, 2, Registers.XL);
+		libRR_log_instruction_1int(Registers.PCw - 2, "LDX #%int%", 0xA2, 2, Registers.XL);
 		SetZN8(Registers.XL);
 	}
 	else
 	{
 		Registers.X.W = Immediate16Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 3, "LDX %int%", 0xA2, 3, Registers.X.W);
+		libRR_log_instruction_1int(Registers.PCw - 3, "LDX.W #%int%", 0xA2, 3, Registers.X.W);
 		SetZN16(Registers.X.W);
 	}
 }
@@ -1056,14 +1059,14 @@ libRR_rOPX("ropX", BESlow,   AbsoluteIndexedYSlow,             WRAP_BANK, LDX)
 static void OpA0X1 (void)
 {
 	Registers.YL = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "LDY %int%", 0xA0, 2, Registers.YL);
+	libRR_log_instruction_1int(Registers.PCw - 2, "LDY #%int%", 0xA0, 2, Registers.YL);
 	SetZN8(Registers.YL);
 }
 
 static void OpA0X0 (void)
 {
 	Registers.Y.W = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 3, "LDY %int%", 0xA0, 3, Registers.Y.W);
+	libRR_log_instruction_1int(Registers.PCw - 3, "LDY.W #%int%", 0xA0, 3, Registers.Y.W);
 	SetZN16(Registers.Y.W);
 }
 
@@ -1072,13 +1075,13 @@ static void OpA0Slow (void)
 	if (CheckIndex())
 	{
 		Registers.YL = Immediate8Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 2, "LDY %int%", 0xA0, 2, Registers.YL);
+		libRR_log_instruction_1int(Registers.PCw - 2, "LDY #%int%", 0xA0, 2, Registers.YL);
 		SetZN8(Registers.YL);
 	}
 	else
 	{
 		Registers.Y.W = Immediate16Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 3, "LDY %int%", 0xA0, 3, Registers.Y.W);
+		libRR_log_instruction_1int(Registers.PCw - 3, "LDY.W #%int%", 0xA0, 3, Registers.Y.W);
 		SetZN16(Registers.Y.W);
 	}
 }
@@ -1164,7 +1167,7 @@ static void Op09M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	Registers.AL |= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "ORA %int%", 0x09, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "ORA #%int%", 0x09, 2, libRR_temp);
 	SetZN8(Registers.AL);
 }
 
@@ -1172,7 +1175,7 @@ static void Op09M0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
 	Registers.A.W |= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "ORA %int%", 0x09, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "ORA.W #%int%", 0x09, 3, libRR_temp);
 	SetZN16(Registers.A.W);
 }
 
@@ -1182,14 +1185,14 @@ static void Op09Slow (void)
 	{
 		uint32 libRR_temp = Immediate8Slow(READ);
 		Registers.AL |= libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "ORA %int%", 0x09, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "ORA #%int%", 0x09, 2, libRR_temp);
 		SetZN8(Registers.AL);
 	}
 	else
 	{
 		uint32 libRR_temp = Immediate16Slow(READ);
 		Registers.A.W |= libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 3, "ORA %int%", 0x09, 3, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "ORA.W #%int%", 0x09, 3, libRR_temp);
 		SetZN16(Registers.A.W);
 	}
 }
@@ -1397,14 +1400,14 @@ libRR_mOPM("ror mopM", 7ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, RO
 static void OpE9M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "SBC %int%", 0xE9, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "SBC #%int%", 0xE9, 2, libRR_temp);
 	SBC8(libRR_temp);
 }
 
 static void OpE9M0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 3, "SBC %int%", 0xE9, 3,libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "SBC.W #%int%", 0xE9, 3,libRR_temp);
 	SBC16(libRR_temp);
 }
 
@@ -1413,13 +1416,13 @@ static void OpE9Slow (void)
 	if (CheckMemory())
 	{	
 		uint32 libRR_temp = Immediate8Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 2, "SBC %int%", 0xE9, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "SBC #%int%", 0xE9, 2, libRR_temp);
 		SBC8(libRR_temp); 
 	}
 	else
 	{	
 		uint32 libRR_temp = Immediate16Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 3, "SBC %int%", 0xE9, 3,libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 3, "SBC.W #%int%", 0xE9, 3,libRR_temp);
 		SBC16(libRR_temp); 
 		}
 }
@@ -1913,7 +1916,7 @@ static void OpEA (void)
 static void OpF4E0 (void)
 {
 	uint16	val = (uint16) ABSOLUTE_MACRO(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PEA", 0xF4E0, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PEA Absolute", 0xF4E0, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 }
@@ -1923,7 +1926,7 @@ static void OpF4E1 (void)
 	/* Note: PEA is a new instruction,*/
 	/* and so doesn't respect the emu-mode stack bounds.*/
 	uint16	val = (uint16) ABSOLUTE_MACRO(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PEA", 0xF4E1, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PEA Absolute", 0xF4E1, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 	Registers.SH = 1;
@@ -1932,7 +1935,7 @@ static void OpF4E1 (void)
 static void OpF4Slow (void)
 {
 	uint16	val = (uint16) ABSOLUTESLOW_MACRO(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PEA", 0xF4, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PEA Slow", 0xF4, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 	if (CheckEmulation())
@@ -1943,7 +1946,7 @@ static void OpF4Slow (void)
 static void OpD4E0 (void)
 {
 	uint16	val = (uint16) DirectIndirectE0(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PEI", 0xD4E1, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PEI DirectIndirectE0", 0xD4E1, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 }
@@ -1953,7 +1956,7 @@ static void OpD4E1 (void)
 	/* Note: PEI is a new instruction,*/
 	/* and so doesn't respect the emu-mode stack bounds.*/
 	uint16	val = (uint16) DirectIndirectE1(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PEI", 0xD4E1, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PEI DirectIndirectE1", 0xD4E1, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 	Registers.SH = 1;
@@ -1962,7 +1965,7 @@ static void OpD4E1 (void)
 static void OpD4Slow (void)
 {
 	uint16	val = (uint16) DirectIndirectSlow(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PEI", 0xD4, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PEI DirectIndirectSlow", 0xD4, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 	if (CheckEmulation())
@@ -1973,7 +1976,7 @@ static void OpD4Slow (void)
 static void Op62E0 (void)
 {
 	uint16	val = (uint16) RelativeLong(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PER", 0x62E0, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PER RelativeLong", 0x62E0, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 }
@@ -1983,7 +1986,7 @@ static void Op62E1 (void)
 	/* Note: PER is a new instruction,*/
 	/* and so doesn't respect the emu-mode stack bounds.*/
 	uint16	val = (uint16) RelativeLong(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PER", 0x62E1, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PER RelativeLong", 0x62E1, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 	Registers.SH = 1;
@@ -1992,7 +1995,7 @@ static void Op62E1 (void)
 static void Op62Slow (void)
 {
 	uint16	val = (uint16) RelativeLongSlow(NONE);
-	libRR_log_instruction(Registers.PCw - 1, "PER", 0x62, 1);
+	libRR_log_instruction(Registers.PCw - 1, "PER RelativeLongSlow", 0x62, 1);
 	PushW(val);
 	OpenBus = val & 0xff;
 	if (CheckEmulation())
@@ -3111,64 +3114,86 @@ static void Op02 (void)
 
 static void OpDC (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "JML [%int%]", 0xdc, 2, READ_WORD(CPU.PCBase + Registers.PCw));
-	S9xSetPCBase(AbsoluteIndirectLong(JUMP));
+	uint32 current_pc = Registers.PCw - 1;
+	libRR_log_instruction_1int(current_pc, "jml [%int%]", 0xdc, 2, READ_WORD(CPU.PCBase + Registers.PCw));
+	uint32 libRR_temp = AbsoluteIndirectLong(JUMP);
+	S9xSetPCBase(libRR_temp);
+	libRR_log_long_jump(current_pc, (uint16)libRR_temp, "jmlDc");
 }
 
 static void OpDCSlow (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "JML [%int%]", 0xdc, 2, S9xGetWord(Registers.PBPC, WRAP_BANK));
-	S9xSetPCBase(AbsoluteIndirectLongSlow(JUMP));
+	uint32 current_pc = Registers.PCw - 1;
+	libRR_log_instruction_1int(current_pc, "jml [%int%]", 0xdc, 2, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	uint32 libRR_temp = AbsoluteIndirectLongSlow(JUMP);
+	S9xSetPCBase(libRR_temp);
+	libRR_log_long_jump(current_pc, libRR_temp, "jmlDcSlow");
 }
 
 static void Op5C (void)
 {
 	libRR_log_instruction_1int(Registers.PCw - 1, "JML %int%", 0x5c, 4, READ_3WORD(CPU.PCBase + Registers.PCw));
-	S9xSetPCBase(AbsoluteLong(JUMP));
+	uint32 libRR_temp = AbsoluteLong(JUMP);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jml5c");
+	S9xSetPCBase(libRR_temp);
 }
 
 static void Op5CSlow (void)
 {
 	libRR_log_instruction_1int(Registers.PCw - 1, "JML %int%", 0x5c, 4, S9xGetWord(Registers.PBPC, WRAP_BANK));
-	S9xSetPCBase(AbsoluteLongSlow(JUMP));
+	uint32 libRR_temp = AbsoluteLongSlow(JUMP);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jml5cSlow");
+	S9xSetPCBase(libRR_temp);
 }
 
 /* JMP ********************************************************************* */
 
 static void Op4C (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "JMP %int%", 0x4c, 1, READ_WORD(CPU.PCBase + Registers.PCw));
+	uint32 libRR_temp = READ_WORD(CPU.PCBase + Registers.PCw);
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp %int%", 0x4c, 1, libRR_temp);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp4c");
 	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) ABSOLUTE_MACRO(JUMP)));
 }
 
 static void Op4CSlow (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "JMP %int%", 0x4c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	uint32 libRR_temp = S9xGetWord(Registers.PBPC, WRAP_BANK);
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp %int%", 0x4c, 1, libRR_temp);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp4cSlow");
 	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) ABSOLUTESLOW_MACRO(JUMP)));
 }
 
 static void Op6C (void)
 {
 	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%)", 0x6c, 1, READ_WORD(CPU.PCBase + Registers.PCw));
-	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) AbsoluteIndirect(JUMP)));
+	uint16 libRR_temp = (uint16) AbsoluteIndirect(JUMP);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp6c");
+	S9xSetPCBase(ICPU.ShiftedPB + ( libRR_temp));
 }
 
 static void Op6CSlow (void)
 {
 	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%)", 0x6c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
-	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) AbsoluteIndirectSlow(JUMP)));
+	uint16 libRR_temp = (uint16) AbsoluteIndirectSlow(JUMP);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp6cSlow");
+	S9xSetPCBase(ICPU.ShiftedPB + (libRR_temp ));
 }
 
 static void Op7C (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "JMP (%int%,X)", 0x7c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
-	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) AbsoluteIndexedIndirect(JUMP)));
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%,X)", 0x7c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	uint16 libRR_temp = (uint16) AbsoluteIndexedIndirect(JUMP);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp7c");
+	S9xSetPCBase(ICPU.ShiftedPB + (libRR_temp));
 }
 
 static void Op7CSlow (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "JMP (%int%,X)", 0x7c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
-	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) AbsoluteIndexedIndirectSlow(JUMP)));
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%,X)", 0x7c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	uint16 libRR_temp = (uint16) AbsoluteIndexedIndirectSlow(JUMP);
+	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp7cSlow");
+	S9xSetPCBase(ICPU.ShiftedPB + (libRR_temp));
 }
 
 /* JSL/RTL ***************************************************************** */

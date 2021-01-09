@@ -188,6 +188,7 @@
 #define libRR_StackRelative() CPU.PCBase[Registers.PCw]
 #define libRR_StackRelativeIndirectIndexed() S9xGetByte(Registers.PBPC)
 #define libRR_Direct() CPU.PCBase[Registers.PCw]
+#define libRR_DirectSlow() CPU.PCBase[Registers.PCw]
 #define libRR_DirectIndirectLong() CPU.PCBase[Registers.PCw]
 #define libRR_DirectIndirectIndexedLong() CPU.PCBase[Registers.PCw]
 #define libRR_DirectIndirectIndexedE0X0() CPU.PCBase[Registers.PCw]
@@ -201,39 +202,103 @@
 #define libRR_DirectIndexedYE0() CPU.PCBase[Registers.PCw]
 #define libRR_DirectIndexedYE1() CPU.PCBase[Registers.PCw]
 #define libRR_DirectIndexedXE1() CPU.PCBase[Registers.PCw]
-#define libRR_AbsoluteIndexedXX1() READ_WORD(CPU.PCBase + Registers.PCw)
-#define libRR_AbsoluteIndexedXX0() READ_WORD(CPU.PCBase + Registers.PCw)
+#define libRR_DirectIndexedYSlow() CPU.PCBase[Registers.PCw]
 #define libRR_Absolute() READ_WORD(CPU.PCBase + Registers.PCw)
+#define libRR_AbsoluteSlow() READ_WORD(CPU.PCBase + Registers.PCw)
+#define libRR_AbsoluteIndexedXX1() READ_WORD(CPU.PCBase + Registers.PCw)
+#define libRR_AbsoluteIndexedXSlow() READ_WORD(CPU.PCBase + Registers.PCw)
+#define libRR_AbsoluteIndexedXX0() READ_WORD(CPU.PCBase + Registers.PCw)
 
+// Absolute lengths
 #define libRR_AbsoluteLong_len 4
 #define libRR_AbsoluteLongIndexedX_len 4
-#define libRR_AbsoluteIndexedYX0_len 4
-#define libRR_AbsoluteIndexedYX1_len 4
+#define libRR_AbsoluteIndexedYX0_len 3
+#define libRR_AbsoluteIndexedYX1_len 3
 #define libRR_DirectIndirectIndexedLong_len 4
 #define libRR_DirectIndirectLong_len 4
+// Stack lengths
 #define libRR_StackRelative_len 3
+#define libRR_StackRelativeSlow_len 3
 #define libRR_StackRelativeIndirectIndexed_len 3
+#define libRR_StackRelativeIndirectIndexedSlow_len 3
 #define libRR_Direct_len 2
+#define libRR_DirectSlow_len 2
+#define libRR_DirectIndexedXSlow_len 3
+#define libRR_DirectIndexedYSlow_len 3
+#define libRR_DirectIndirectSlow_len 3
+#define libRR_DirectIndirectLongSlow_len 3
 #define libRR_DirectIndirectIndexedE0X0_len 3
 #define libRR_DirectIndirectIndexedE0X1_len 3
 #define libRR_DirectIndirectIndexedE1_len 3
+#define libRR_DirectIndirectIndexedSlow_len 3
+#define libRR_DirectIndirectIndexedLongSlow_len 3
 #define libRR_DirectIndexedIndirectE0_len 3
 #define libRR_DirectIndexedIndirectE1_len 3
+#define libRR_DirectIndexedIndirectSlow_len 3
 #define libRR_DirectIndirectE0_len 3
 #define libRR_DirectIndirectE1_len 3
 #define libRR_DirectIndexedXE0_len 3
 #define libRR_DirectIndexedYE0_len 3
 #define libRR_DirectIndexedYE1_len 3
 #define libRR_DirectIndexedXE1_len 3
+#define libRR_Absolute_len 3
+#define libRR_AbsoluteSlow_len 3
+#define libRR_AbsoluteLongSlow_len 3
+#define libRR_AbsoluteLongIndexedXSlow_len 3
+#define libRR_AbsoluteIndexedYSlow_len 3
 #define libRR_AbsoluteIndexedXX1_len 3
 #define libRR_AbsoluteIndexedXX0_len 3
-#define libRR_Absolute_len 3
+#define libRR_AbsoluteIndexedXSlow_len 3
 
+// Suffix start
+// Stack suffix
+#define libRR_StackRelative_suffix "%int%, s ;"
+#define libRR_StackRelativeSlow_suffix "%int%, s ;"
+#define libRR_StackRelativeIndirectIndexedSlow_suffix "(%int%,x), s ;"
+#define libRR_StackRelativeIndirectIndexed_suffix "(%int%,x), s ;"
+// Direct suffix
+#define libRR_Direct_suffix "%int% ;"
+#define libRR_DirectSlow_suffix "%int% ;"
+#define libRR_DirectIndexedXSlow_suffix "%int%, x ;"
+#define libRR_DirectIndexedYSlow_suffix "%int%, y ;"
+#define libRR_DirectIndirectLong_suffix "(%int%) ;"
+#define libRR_DirectIndirectLongSlow_suffix "(%int%) ;"
+#define libRR_DirectIndirectIndexedLong_suffix "(%int%), y ;"
+#define libRR_DirectIndirectIndexedLongSlow_suffix "(%int%), y ;"
+#define libRR_DirectIndirectIndexedE0X0_suffix "(%int%) ;"
+#define libRR_DirectIndirectIndexedE0X1_suffix "(%int%) ;"
+#define libRR_DirectIndirectIndexedE1_suffix "(%int%) ;"
+#define libRR_DirectIndirectIndexedSlow_suffix "(%int%) ;"
+#define libRR_DirectIndexedIndirectE0_suffix "%int% ;"
+#define libRR_DirectIndexedIndirectE1_suffix "%int% ;"
+#define libRR_DirectIndexedIndirectSlow_suffix "%int% ;"
+#define libRR_DirectIndirectE0_suffix "(%int%) ;"
+#define libRR_DirectIndirectE1_suffix "(%int%) ;"
+#define libRR_DirectIndirectSlow_suffix "(%int%) ;"
+#define libRR_DirectIndexedXE0_suffix "%int%, x ;"
+#define libRR_DirectIndexedYE0_suffix "%int%, y ;"
+#define libRR_DirectIndexedXE1_suffix "%int%, x ;"
+#define libRR_DirectIndexedYE1_suffix "%int%, y ;"
+// Absolute suffix
+#define libRR_AbsoluteLong_suffix "%int% ;"
+#define libRR_AbsoluteLongSlow_suffix "%int% ;"
+#define libRR_AbsoluteLongIndexedXSlow_suffix "%int%, x ;"
+#define libRR_AbsoluteLongIndexedX_suffix "%int%, x ;"
+#define libRR_AbsoluteIndexedYX0_suffix "%int%, y ;"
+#define libRR_AbsoluteIndexedYX1_suffix "%int%, y ;"
+#define libRR_AbsoluteIndexedXX1_suffix "%int%, x ;"
+#define libRR_AbsoluteIndexedXX0_suffix "%int%, x ;"
+#define libRR_AbsoluteIndexedXSlow_suffix "%int%, x ;"
+#define libRR_AbsoluteIndexedYSlow_suffix "%int%, y ;"
+#define libRR_Absolute_suffix "%int% ;"
+#define libRR_AbsoluteSlow_suffix "%int% ;"
+
+// libRR read opcode 8bit
 #define libRR_rOP8(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
 	uint32 libRR_temp = libRR_##ADDR (); \
-	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
 	uint8	val = OpenBus = S9xGetByte(ADDR(READ)); \
 	FUNC##8(val); \
 }
@@ -245,11 +310,12 @@ static void Op##OP (void) \
 	FUNC##8(val); \
 }
 
+// libRR read opcode 16bit
 #define libRR_rOP16(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
 	uint32 libRR_temp = libRR_##ADDR (); \
-	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
 	uint16	val = S9xGetWord(ADDR(READ), WRAP); \
 	OpenBus = (uint8) (val >> 8); \
 	FUNC(val); \
@@ -263,10 +329,11 @@ static void Op##OP (void) \
 	FUNC(val); \
 }
 
+// libRR read opcode Conditional
 #define libRR_rOPC(DISASM, OP, COND, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
-	libRR_log_instruction(Registers.PCw - 1, DISASM, 0x00, 1); \
+	libRR_log_instruction(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR, 0x00, libRR_##ADDR##_len); \
 	if (Check##COND()) \
 	{ \
 		uint8	val = OpenBus = S9xGetByte(ADDR(READ)); \
@@ -296,14 +363,14 @@ static void Op##OP (void) \
 	} \
 }
 
-// libRR
+// libRR read opcode M
 #define libRR_rOPM(DISASM, OP, ADDR, WRAP, FUNC) \
 libRR_rOPC(DISASM, OP, Memory, ADDR, WRAP, FUNC)
 
 #define rOPM(OP, ADDR, WRAP, FUNC) \
 rOPC(OP, Memory, ADDR, WRAP, FUNC)
 
-// LibRR
+// LibRR read opcode X
 #define libRR_rOPX(DISASM, OP, ADDR, WRAP, FUNC) \
 libRR_rOPC(DISASM, OP, Index, ADDR, WRAP, FUNC)
 
@@ -312,12 +379,12 @@ rOPC(OP, Index, ADDR, WRAP, FUNC)
 
 
 
-// LibRR
+// LibRR write opcode 8bit
 #define libRR_wOP8(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
 	uint32 libRR_temp = libRR_##ADDR (); \
-	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
 	FUNC##8(ADDR(WRITE)); \
 }
 
@@ -327,12 +394,12 @@ static void Op##OP (void) \
 	FUNC##8(ADDR(WRITE)); \
 }
 
-// libRR
+// libRR write opcode 16bit
 #define libRR_wOP16(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
 	uint32 libRR_temp = libRR_##ADDR (); \
-	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
 	FUNC##16(ADDR(WRITE), WRAP); \
 }
 
@@ -342,11 +409,11 @@ static void Op##OP (void) \
 	FUNC##16(ADDR(WRITE), WRAP); \
 }
 
-// libRR
+// libRR write opcode conditional
 #define libRR_wOPC(DISASM, OP, COND, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
-	libRR_log_instruction(Registers.PCw - 1, DISASM, 0x00, 2); \
+	libRR_log_instruction(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR, 0x00, libRR_##ADDR##_len); \
 	if (Check##COND()) {\
 		FUNC##8(ADDR(WRITE)); }\
 	else {\
@@ -362,26 +429,26 @@ static void Op##OP (void) \
 		FUNC##16(ADDR(WRITE), WRAP); \
 }
 
-// libRR
+// libRR write opcode M
 #define libRR_wOPM(DISASM, OP, ADDR, WRAP, FUNC) \
 libRR_wOPC(DISASM, OP, Memory, ADDR, WRAP, FUNC)
 
 #define wOPM(OP, ADDR, WRAP, FUNC) \
 wOPC(OP, Memory, ADDR, WRAP, FUNC)
 
-// libRR
+// libRR write opcode X
 #define libRR_wOPX(DISASM, OP, ADDR, WRAP, FUNC) \
 libRR_wOPC(DISASM, OP, Index, ADDR, WRAP, FUNC)
 
 #define wOPX(OP, ADDR, WRAP, FUNC) \
 wOPC(OP, Index, ADDR, WRAP, FUNC)
 
-// libRR
+// libRR modify opcode 8
 #define libRR_mOP8(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
 	uint32 libRR_temp = libRR_##ADDR (); \
-	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR , 0x00, 2, libRR_temp); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR , 0x00, libRR_##ADDR##_len, libRR_temp); \
 	FUNC##8(ADDR(MODIFY)); \
 }
 
@@ -391,12 +458,12 @@ static void Op##OP (void) \
 	FUNC##8(ADDR(MODIFY)); \
 }
 
-// libRR
+// libRR modify opcode 16
 #define libRR_mOP16(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
 	uint32 libRR_temp = libRR_##ADDR (); \
-	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR, 0x00, 3, libRR_temp); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR, 0x00, libRR_##ADDR##_len, libRR_temp); \
 	FUNC##16(ADDR(MODIFY), WRAP); \
 }
 #define mOP16(OP, ADDR, WRAP, FUNC) \
@@ -405,11 +472,11 @@ static void Op##OP (void) \
 	FUNC##16(ADDR(MODIFY), WRAP); \
 }
 
-// libRR
+// libRR modify opcode conditional
 #define libRR_mOPC(DISASM, OP, COND, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
-	libRR_log_instruction(Registers.PCw - 1, DISASM, 0x00, 2); \
+	libRR_log_instruction(Registers.PCw - 1, DISASM libRR_##ADDR##_suffix #ADDR, 0x00, libRR_##ADDR##_len); \
 	if (Check##COND()) \
 	{	FUNC##8(ADDR(MODIFY)); }\
 	else \
@@ -424,14 +491,14 @@ static void Op##OP (void) \
 		FUNC##16(ADDR(MODIFY), WRAP); \
 }
 
-// libRR
+// libRR modify opcode M
 #define libRR_mOPM(DISASM, OP, ADDR, WRAP, FUNC) \
 libRR_mOPC(DISASM, OP, Memory, ADDR, WRAP, FUNC)
 
 #define mOPM(OP, ADDR, WRAP, FUNC) \
 mOPC(OP, Memory, ADDR, WRAP, FUNC)
 
-// libRR
+// libRR branch opcode
 #define libRR_bOP(DISASM, OP, REL, COND, CHK, E) \
 static void Op##OP (void) \
 { \
