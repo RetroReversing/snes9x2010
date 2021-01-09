@@ -380,7 +380,8 @@ wOPC(OP, Index, ADDR, WRAP, FUNC)
 #define libRR_mOP8(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
-	libRR_log_instruction(Registers.PCw - 1, DISASM, 0x00, 2); \
+	uint32 libRR_temp = libRR_##ADDR (); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR , 0x00, 2, libRR_temp); \
 	FUNC##8(ADDR(MODIFY)); \
 }
 
@@ -394,7 +395,8 @@ static void Op##OP (void) \
 #define libRR_mOP16(DISASM, OP, ADDR, WRAP, FUNC) \
 static void Op##OP (void) \
 { \
-	libRR_log_instruction(Registers.PCw - 1, DISASM, 0x00, 2); \
+	uint32 libRR_temp = libRR_##ADDR (); \
+	libRR_log_instruction_1int(Registers.PCw - 1, DISASM "%int% ;" #ADDR, 0x00, 3, libRR_temp); \
 	FUNC##16(ADDR(MODIFY), WRAP); \
 }
 #define mOP16(OP, ADDR, WRAP, FUNC) \
