@@ -823,7 +823,7 @@ static uint32 FileLoader (uint8 *buffer, const char *filename, int32 maxsize)
 	/* <- ROM size without header */
 	/* ** Memory.HeaderCount */
 	/* ** Memory.ROMFilename */
-
+	printf("SNES FileLoader start\n");
 	bool8	more;
 	uint64_t	size;
 	char	fname[PATH_MAX + 1], drive[_MAX_DRIVE + 1], dir[PATH_MAX + 1], name[PATH_MAX + 1], exts[PATH_MAX + 1];
@@ -995,6 +995,7 @@ again:
 
 	if (Settings.ForceLoROM || (!Settings.ForceHiROM && lo_score >= hi_score))
 	{
+		printf("Setting rom type to LOROM\n\n");
 		Memory.LoROM = TRUE;
 		Memory.HiROM = FALSE;
 
@@ -1017,6 +1018,7 @@ again:
 	else
 	{
 		Memory.LoROM = FALSE;
+		printf("Setting rom type to HIROM\n\n");
 		Memory.HiROM = TRUE;
 
 		if ((RomHeader[0xffd5] & 0xf0) == 0x20 || (RomHeader[0xffd5] & 0xf0) == 0x30)
@@ -1037,6 +1039,7 @@ again:
 		if (strncmp((char *) &Memory.ROM[0x7fc0], "YUYU NO QUIZ DE GO!GO!", 22) == 0 ||
 		   (strncmp((char *) &Memory.ROM[0xffc0], "BATMAN--REVENGE JOKER",  21) == 0))
 		{
+			printf("Setting rom type to LOROM\n\n");
 			Memory.LoROM = TRUE;
 			Memory.HiROM = FALSE;
 			interleaved = FALSE;
@@ -1062,6 +1065,7 @@ again:
 			}
 
 			Memory.LoROM = FALSE;
+			printf("Setting rom type to HIROM\n\n");
 			Memory.HiROM = TRUE;
 		}
 		else
