@@ -265,7 +265,12 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
 			CPU.WaitAddress = CPU.PBPCAtOpcodeStart;
 	#endif
 		word = READ_WORD(GetAddress + (Address & 0xffff));
-		// TODO: maybe READ_WORD
+
+		int bank = get_current_bank_number_for_address(Address);
+		if (bank > -1 && Memory.BlockIsROM[block]) {
+			libRR_log_rom_read(bank, (Address & 0xffff), "", 2, (char*)&word);
+		}
+
 		addCyclesInMemoryAccess_x2;
 		return (word);
 	}
@@ -352,6 +357,7 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
          break;
 
 		case MAP_C4:
+			printf("MAP_C4 \n");
 			word  = S9xGetC4(Address & 0xffff);
 			addCyclesInMemoryAccess;
 			word |= S9xGetC4((Address + 1) & 0xffff) << 8;
@@ -388,6 +394,7 @@ static INLINE uint16 S9xGetWord (uint32 Address, uint32 w)
 
 		case MAP_NONE:
 		default:
+			printf("MAP_NONE \n");
 			word = OpenBus | (OpenBus << 8);
 			addCyclesInMemoryAccess_x2;
          break;

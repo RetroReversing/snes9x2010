@@ -209,38 +209,39 @@
 #define libRR_AbsoluteIndexedXSlow() READ_WORD(CPU.PCBase + Registers.PCw)
 #define libRR_AbsoluteIndexedXX0() READ_WORD(CPU.PCBase + Registers.PCw)
 
-// Absolute lengths
-#define libRR_AbsoluteLong_len 4
-#define libRR_AbsoluteLongIndexedX_len 4
-#define libRR_AbsoluteIndexedYX0_len 3
-#define libRR_AbsoluteIndexedYX1_len 3
-#define libRR_DirectIndirectIndexedLong_len 4
-#define libRR_DirectIndirectLong_len 4
 // Stack lengths
 #define libRR_StackRelative_len 3
 #define libRR_StackRelativeSlow_len 3
 #define libRR_StackRelativeIndirectIndexed_len 3
 #define libRR_StackRelativeIndirectIndexedSlow_len 3
+// Direct lengths
 #define libRR_Direct_len 2
 #define libRR_DirectSlow_len 2
-#define libRR_DirectIndexedXSlow_len 3
-#define libRR_DirectIndexedYSlow_len 3
-#define libRR_DirectIndirectSlow_len 3
-#define libRR_DirectIndirectLongSlow_len 3
-#define libRR_DirectIndirectIndexedE0X0_len 3
-#define libRR_DirectIndirectIndexedE0X1_len 3
-#define libRR_DirectIndirectIndexedE1_len 3
-#define libRR_DirectIndirectIndexedSlow_len 3
-#define libRR_DirectIndirectIndexedLongSlow_len 3
-#define libRR_DirectIndexedIndirectE0_len 3
-#define libRR_DirectIndexedIndirectE1_len 3
-#define libRR_DirectIndexedIndirectSlow_len 3
-#define libRR_DirectIndirectE0_len 3
-#define libRR_DirectIndirectE1_len 3
-#define libRR_DirectIndexedXE0_len 3
-#define libRR_DirectIndexedYE0_len 3
-#define libRR_DirectIndexedYE1_len 3
-#define libRR_DirectIndexedXE1_len 3
+#define libRR_DirectIndexedXSlow_len 2
+#define libRR_DirectIndexedYSlow_len 2
+#define libRR_DirectIndirectSlow_len 2
+#define libRR_DirectIndirectLong_len 2
+#define libRR_DirectIndirectLongSlow_len 2
+#define libRR_DirectIndirectIndexedE0X0_len 2
+#define libRR_DirectIndirectIndexedE0X1_len 2
+#define libRR_DirectIndirectIndexedE1_len 2
+#define libRR_DirectIndirectIndexedSlow_len 2
+#define libRR_DirectIndirectIndexedLong_len 2
+#define libRR_DirectIndirectIndexedLongSlow_len 2
+#define libRR_DirectIndexedIndirectE0_len 2
+#define libRR_DirectIndexedIndirectE1_len 2
+#define libRR_DirectIndexedIndirectSlow_len 2
+#define libRR_DirectIndirectE0_len 2
+#define libRR_DirectIndirectE1_len 2
+#define libRR_DirectIndexedXE0_len 2
+#define libRR_DirectIndexedYE0_len 2
+#define libRR_DirectIndexedYE1_len 2
+#define libRR_DirectIndexedXE1_len 2
+// Absolute lengths
+#define libRR_AbsoluteLong_len 4
+#define libRR_AbsoluteLongIndexedX_len 4 // correct
+#define libRR_AbsoluteIndexedYX0_len 3
+#define libRR_AbsoluteIndexedYX1_len 3
 #define libRR_Absolute_len 3
 #define libRR_AbsoluteSlow_len 3
 #define libRR_AbsoluteLongSlow_len 3
@@ -252,46 +253,53 @@
 
 // Suffix start
 // Stack suffix
-#define libRR_StackRelative_suffix "%int%, s ;"
-#define libRR_StackRelativeSlow_suffix "%int%, s ;"
-#define libRR_StackRelativeIndirectIndexedSlow_suffix "(%int%,x), s ;"
-#define libRR_StackRelativeIndirectIndexed_suffix "(%int%,x), s ;"
-// Direct suffix
-#define libRR_Direct_suffix "%int% ;"
-#define libRR_DirectSlow_suffix "%int% ;"
-#define libRR_DirectIndexedXSlow_suffix "%int%, x ;"
-#define libRR_DirectIndexedYSlow_suffix "%int%, y ;"
-#define libRR_DirectIndirectLong_suffix "(%int%) ;"
-#define libRR_DirectIndirectLongSlow_suffix "(%int%) ;"
-#define libRR_DirectIndirectIndexedLong_suffix "(%int%), y ;"
-#define libRR_DirectIndirectIndexedLongSlow_suffix "(%int%), y ;"
-#define libRR_DirectIndirectIndexedE0X0_suffix "(%int%) ;"
-#define libRR_DirectIndirectIndexedE0X1_suffix "(%int%) ;"
-#define libRR_DirectIndirectIndexedE1_suffix "(%int%) ;"
-#define libRR_DirectIndirectIndexedSlow_suffix "(%int%) ;"
-#define libRR_DirectIndexedIndirectE0_suffix "%int% ;"
-#define libRR_DirectIndexedIndirectE1_suffix "%int% ;"
-#define libRR_DirectIndexedIndirectSlow_suffix "%int% ;"
-#define libRR_DirectIndirectE0_suffix "(%int%) ;"
-#define libRR_DirectIndirectE1_suffix "(%int%) ;"
-#define libRR_DirectIndirectSlow_suffix "(%int%) ;"
-#define libRR_DirectIndexedXE0_suffix "%int%, x ;"
-#define libRR_DirectIndexedYE0_suffix "%int%, y ;"
-#define libRR_DirectIndexedXE1_suffix "%int%, x ;"
-#define libRR_DirectIndexedYE1_suffix "%int%, y ;"
-// Absolute suffix
-#define libRR_AbsoluteLong_suffix "%int% ;"
-#define libRR_AbsoluteLongSlow_suffix "%int% ;"
-#define libRR_AbsoluteLongIndexedXSlow_suffix "%int%, x ;"
-#define libRR_AbsoluteLongIndexedX_suffix "%int%, x ;"
-#define libRR_AbsoluteIndexedYX0_suffix "%int%, y ;"
-#define libRR_AbsoluteIndexedYX1_suffix "%int%, y ;"
-#define libRR_AbsoluteIndexedXX1_suffix "%int%, x ;"
-#define libRR_AbsoluteIndexedXX0_suffix "%int%, x ;"
-#define libRR_AbsoluteIndexedXSlow_suffix "%int%, x ;"
-#define libRR_AbsoluteIndexedYSlow_suffix "%int%, y ;"
-#define libRR_Absolute_suffix "%int% ;"
-#define libRR_AbsoluteSlow_suffix "%int% ;"
+#define libRR_StackRelative_suffix " %int%, s ;"
+#define libRR_StackRelativeSlow_suffix " %int%, s ;"
+#define libRR_StackRelativeIndirectIndexedSlow_suffix " [%int%,x], s ;"
+#define libRR_StackRelativeIndirectIndexed_suffix " [%int%,x], s ;"
+// Direct suffix (1 byte operand)
+#define libRR_Direct_suffix " %int% ;"
+#define libRR_DirectSlow_suffix " %int% ;"
+#define libRR_DirectIndexedXSlow_suffix " %int%, x ;"
+#define libRR_DirectIndexedYSlow_suffix " %int%, y ;"
+// Long indirect use []
+#define libRR_DirectIndirectLong_suffix ".B [%int%] ;"
+#define libRR_DirectIndirectLongSlow_suffix ".B [%int%] ;"
+// Long Indexed versions use []
+#define libRR_DirectIndirectIndexedLong_suffix ".B [%int%], y ;"
+#define libRR_DirectIndirectIndexedLongSlow_suffix ".B [%int%], y ;"
+// Non-long Indexed use ()
+#define libRR_DirectIndirectIndexedE0X0_suffix " (%int%), y ;"
+#define libRR_DirectIndirectIndexedE0X1_suffix " (%int%), y ;"
+#define libRR_DirectIndirectIndexedE1_suffix " (%int%), y ;"
+#define libRR_DirectIndirectIndexedSlow_suffix " (%int%), y ;"
+
+// DirectIndexedIndirect use ()
+#define libRR_DirectIndexedIndirectE0_suffix " (%int%,X) ;"
+#define libRR_DirectIndexedIndirectE1_suffix " (%int%,X) ;"
+#define libRR_DirectIndexedIndirectSlow_suffix " (%int%,X) ;"
+// Direct indirect use ()
+#define libRR_DirectIndirectE0_suffix " (%int%) ;"
+#define libRR_DirectIndirectE1_suffix " (%int%) ;"
+#define libRR_DirectIndirectSlow_suffix " (%int%) ;"
+// DirectIndexed 
+#define libRR_DirectIndexedXE0_suffix " %int%, x ;"
+#define libRR_DirectIndexedXE1_suffix " %int%, x ;"
+#define libRR_DirectIndexedYE0_suffix " %int%, y ;"
+#define libRR_DirectIndexedYE1_suffix " %int%, y ;"
+// Absolute suffix (2 byte operand)
+#define libRR_AbsoluteLong_suffix ".L %int% ;"
+#define libRR_AbsoluteLongSlow_suffix ".L %int% ;"
+#define libRR_AbsoluteLongIndexedXSlow_suffix ".L %int%, x ;"
+#define libRR_AbsoluteLongIndexedX_suffix ".L %int%, x ;"
+#define libRR_AbsoluteIndexedYX0_suffix ".W %int%, y ;"
+#define libRR_AbsoluteIndexedYX1_suffix ".W %int%, y ;"
+#define libRR_AbsoluteIndexedXX1_suffix ".W %int%, x ;"
+#define libRR_AbsoluteIndexedXX0_suffix ".W %int%, x ;"
+#define libRR_AbsoluteIndexedXSlow_suffix ".W %int%, x ;"
+#define libRR_AbsoluteIndexedYSlow_suffix ".W %int%, y ;"
+#define libRR_Absolute_suffix ".W %int% ;"
+#define libRR_AbsoluteSlow_suffix ".W %int% ;"
 
 // libRR read opcode 8bit
 #define libRR_rOP8(DISASM, OP, ADDR, WRAP, FUNC) \

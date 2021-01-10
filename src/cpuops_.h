@@ -200,14 +200,14 @@
 static void Op69M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "adc #%int%", 0x69, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "adc.b #%int% ;Immediate8", 0x69, 2, libRR_temp);
 	ADC8(libRR_temp);
 }
 
 static void Op69M0 (void)
 {
 	uint32 libRR_temp = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 1, "adc.w #%int%", 0x69, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "adc.w #%int%", 0x69, 3, libRR_temp);
 	ADC16(libRR_temp);
 }
 
@@ -220,70 +220,70 @@ static void Op69Slow (void)
 		{ADC16(Immediate16Slow(READ));}
 }
 
-libRR_rOP8("adc ", 65M1,     Direct,                           WRAP_BANK, ADC)
-libRR_rOP16("adc ", 65M0,     Direct,                           WRAP_BANK, ADC16)
+libRR_rOP8("adc", 65M1,     Direct,                           WRAP_BANK, ADC)
+libRR_rOP16("adc", 65M0,     Direct,                           WRAP_BANK, ADC16)
 libRR_rOPM("adc ropM", 65Slow,   DirectSlow,                       WRAP_BANK, ADC)
 
-libRR_rOP8("adc ", 75E1,     DirectIndexedXE1,                 WRAP_BANK, ADC)
-libRR_rOP8("adc ", 75E0M1,   DirectIndexedXE0,                 WRAP_BANK, ADC)
-libRR_rOP16("adc ", 75E0M0,   DirectIndexedXE0,                 WRAP_BANK, ADC16)
+libRR_rOP8("adc", 75E1,     DirectIndexedXE1,                 WRAP_BANK, ADC)
+libRR_rOP8("adc", 75E0M1,   DirectIndexedXE0,                 WRAP_BANK, ADC)
+libRR_rOP16("adc", 75E0M0,   DirectIndexedXE0,                 WRAP_BANK, ADC16)
 libRR_rOPM("adc ropM", 75Slow,   DirectIndexedXSlow,               WRAP_BANK, ADC)
 
-libRR_rOP8("adc ", 72E1,     DirectIndirectE1,                 WRAP_NONE, ADC)
-libRR_rOP8("adc ", 72E0M1,   DirectIndirectE0,                 WRAP_NONE, ADC)
-libRR_rOP16("adc ", 72E0M0,   DirectIndirectE0,                 WRAP_NONE, ADC16)
+libRR_rOP8("adc", 72E1,     DirectIndirectE1,                 WRAP_NONE, ADC)
+libRR_rOP8("adc", 72E0M1,   DirectIndirectE0,                 WRAP_NONE, ADC)
+libRR_rOP16("adc", 72E0M0,   DirectIndirectE0,                 WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 72Slow,   DirectIndirectSlow,               WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 61E1,     DirectIndexedIndirectE1,          WRAP_NONE, ADC)
-libRR_rOP8("adc ", 61E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, ADC)
-libRR_rOP16("adc ", 61E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, ADC16)
+libRR_rOP8("adc", 61E1,     DirectIndexedIndirectE1,          WRAP_NONE, ADC)
+libRR_rOP8("adc", 61E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, ADC)
+libRR_rOP16("adc", 61E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 61Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 71E1,     DirectIndirectIndexedE1,          WRAP_NONE, ADC)
-libRR_rOP8("adc ", 71E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ADC)
-libRR_rOP16("adc ", 71E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ADC16)
-libRR_rOP8("adc ", 71E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ADC)
-libRR_rOP16("adc ", 71E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ADC16)
+libRR_rOP8("adc", 71E1,     DirectIndirectIndexedE1,          WRAP_NONE, ADC)
+libRR_rOP8("adc", 71E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ADC)
+libRR_rOP16("adc", 71E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ADC16)
+libRR_rOP8("adc", 71E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ADC)
+libRR_rOP16("adc", 71E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 71Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 67M1,     DirectIndirectLong,               WRAP_NONE, ADC)
-libRR_rOP16("adc ", 67M0,     DirectIndirectLong,               WRAP_NONE, ADC16)
+libRR_rOP8("adc", 67M1,     DirectIndirectLong,               WRAP_NONE, ADC)
+libRR_rOP16("adc", 67M0,     DirectIndirectLong,               WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 67Slow,   DirectIndirectLongSlow,           WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 77M1,     DirectIndirectIndexedLong,        WRAP_NONE, ADC)
-libRR_rOP16("adc ", 77M0,     DirectIndirectIndexedLong,        WRAP_NONE, ADC16)
+libRR_rOP8("adc", 77M1,     DirectIndirectIndexedLong,        WRAP_NONE, ADC)
+libRR_rOP16("adc", 77M0,     DirectIndirectIndexedLong,        WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 77Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 6DM1,     Absolute,                         WRAP_NONE, ADC)
-libRR_rOP16("adc ", 6DM0,     Absolute,                         WRAP_NONE, ADC16)
+libRR_rOP8("adc", 6DM1,     Absolute,                         WRAP_NONE, ADC)
+libRR_rOP16("adc", 6DM0,     Absolute,                         WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 6DSlow,   AbsoluteSlow,                     WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 7DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ADC)
-libRR_rOP16("adc ", 7DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ADC16)
-libRR_rOP8("adc ", 7DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ADC)
-libRR_rOP16("adc ", 7DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ADC16)
+libRR_rOP8("adc", 7DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ADC)
+libRR_rOP16("adc", 7DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ADC16)
+libRR_rOP8("adc", 7DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ADC)
+libRR_rOP16("adc", 7DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 7DSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 79M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, ADC)
-libRR_rOP16("adc ", 79M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, ADC16)
-libRR_rOP8("adc ", 79M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, ADC)
-libRR_rOP16("adc ", 79M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, ADC16)
+libRR_rOP8("adc", 79M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, ADC)
+libRR_rOP16("adc", 79M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, ADC16)
+libRR_rOP8("adc", 79M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, ADC)
+libRR_rOP16("adc", 79M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 79Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 6FM1,     AbsoluteLong,                     WRAP_NONE, ADC)
-libRR_rOP16("adc ", 6FM0,     AbsoluteLong,                     WRAP_NONE, ADC16)
+libRR_rOP8("adc", 6FM1,     AbsoluteLong,                     WRAP_NONE, ADC)
+libRR_rOP16("adc", 6FM0,     AbsoluteLong,                     WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 6FSlow,   AbsoluteLongSlow,                 WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 7FM1,     AbsoluteLongIndexedX,             WRAP_NONE, ADC)
-libRR_rOP16("adc ", 7FM0,     AbsoluteLongIndexedX,             WRAP_NONE, ADC16)
+libRR_rOP8("adc", 7FM1,     AbsoluteLongIndexedX,             WRAP_NONE, ADC)
+libRR_rOP16("adc", 7FM0,     AbsoluteLongIndexedX,             WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 7FSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 63M1,     StackRelative,                    WRAP_NONE, ADC)
-libRR_rOP16("adc ", 63M0,     StackRelative,                    WRAP_NONE, ADC16)
+libRR_rOP8("adc", 63M1,     StackRelative,                    WRAP_NONE, ADC)
+libRR_rOP16("adc", 63M0,     StackRelative,                    WRAP_NONE, ADC16)
 libRR_rOPM("adc ropM", 63Slow,   StackRelativeSlow,                WRAP_NONE, ADC)
 
-libRR_rOP8("adc ", 73M1,     StackRelativeIndirectIndexed,     WRAP_NONE, ADC)
-libRR_rOP16("adc ", 73M0,     StackRelativeIndirectIndexed,     WRAP_NONE, ADC16)
+libRR_rOP8("adc", 73M1,     StackRelativeIndirectIndexed,     WRAP_NONE, ADC)
+libRR_rOP16("adc", 73M0,     StackRelativeIndirectIndexed,     WRAP_NONE, ADC16)
 libRR_rOPM("ropM", 73Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, ADC)
 
 /* AND ********************************************************************* */
@@ -292,7 +292,7 @@ static void Op29M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	Registers.AL &= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "AND #%int%", 0x29, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "AND.B #%int% ;Immediate8", 0x29, 2, libRR_temp);
 	SetZN8(Registers.AL);
 }
 
@@ -322,70 +322,70 @@ static void Op29Slow (void)
 	}
 }
 
-libRR_rOP8("and ", 25M1,     Direct,                           WRAP_BANK, AND)
-libRR_rOP16("and ", 25M0,     Direct,                           WRAP_BANK, AND16)
+libRR_rOP8("and", 25M1,     Direct,                           WRAP_BANK, AND)
+libRR_rOP16("and", 25M0,     Direct,                           WRAP_BANK, AND16)
 libRR_rOPM("and ropM", 25Slow,   DirectSlow,                       WRAP_BANK, AND)
 
-libRR_rOP8("and ", 35E1,     DirectIndexedXE1,                 WRAP_BANK, AND)
-libRR_rOP8("and ", 35E0M1,   DirectIndexedXE0,                 WRAP_BANK, AND)
-libRR_rOP16("and ", 35E0M0,   DirectIndexedXE0,                 WRAP_BANK, AND16)
+libRR_rOP8("and", 35E1,     DirectIndexedXE1,                 WRAP_BANK, AND)
+libRR_rOP8("and", 35E0M1,   DirectIndexedXE0,                 WRAP_BANK, AND)
+libRR_rOP16("and", 35E0M0,   DirectIndexedXE0,                 WRAP_BANK, AND16)
 libRR_rOPM("and ropM", 35Slow,   DirectIndexedXSlow,               WRAP_BANK, AND)
 
-libRR_rOP8("and ", 32E1,     DirectIndirectE1,                 WRAP_NONE, AND)
-libRR_rOP8("and ", 32E0M1,   DirectIndirectE0,                 WRAP_NONE, AND)
-libRR_rOP16("and ", 32E0M0,   DirectIndirectE0,                 WRAP_NONE, AND16)
+libRR_rOP8("and", 32E1,     DirectIndirectE1,                 WRAP_NONE, AND)
+libRR_rOP8("and", 32E0M1,   DirectIndirectE0,                 WRAP_NONE, AND)
+libRR_rOP16("and", 32E0M0,   DirectIndirectE0,                 WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 32Slow,   DirectIndirectSlow,               WRAP_NONE, AND)
 
-libRR_rOP8("and ", 21E1,     DirectIndexedIndirectE1,          WRAP_NONE, AND)
-libRR_rOP8("and ", 21E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, AND)
-libRR_rOP16("and ", 21E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, AND16)
+libRR_rOP8("and", 21E1,     DirectIndexedIndirectE1,          WRAP_NONE, AND)
+libRR_rOP8("and", 21E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, AND)
+libRR_rOP16("and", 21E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 21Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, AND)
 
-libRR_rOP8("and ", 31E1,     DirectIndirectIndexedE1,          WRAP_NONE, AND)
-libRR_rOP8("and ", 31E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, AND)
-libRR_rOP16("and ", 31E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, AND16)
-libRR_rOP8("and ", 31E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, AND)
-libRR_rOP16("and ", 31E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, AND16)
+libRR_rOP8("and", 31E1,     DirectIndirectIndexedE1,          WRAP_NONE, AND)
+libRR_rOP8("and", 31E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, AND)
+libRR_rOP16("and", 31E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, AND16)
+libRR_rOP8("and", 31E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, AND)
+libRR_rOP16("and", 31E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 31Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, AND)
 
-libRR_rOP8("and ", 27M1,     DirectIndirectLong,               WRAP_NONE, AND)
-libRR_rOP16("and ", 27M0,     DirectIndirectLong,               WRAP_NONE, AND16)
+libRR_rOP8("and", 27M1,     DirectIndirectLong,               WRAP_NONE, AND)
+libRR_rOP16("and", 27M0,     DirectIndirectLong,               WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 27Slow,   DirectIndirectLongSlow,           WRAP_NONE, AND)
 
-libRR_rOP8("and ", 37M1,     DirectIndirectIndexedLong,        WRAP_NONE, AND)
-libRR_rOP16("and ", 37M0,     DirectIndirectIndexedLong,        WRAP_NONE, AND16)
+libRR_rOP8("and", 37M1,     DirectIndirectIndexedLong,        WRAP_NONE, AND)
+libRR_rOP16("and", 37M0,     DirectIndirectIndexedLong,        WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 37Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, AND)
 
-libRR_rOP8("and ", 2DM1,     Absolute,                         WRAP_NONE, AND)
-libRR_rOP16("and ", 2DM0,     Absolute,                         WRAP_NONE, AND16)
+libRR_rOP8("and", 2DM1,     Absolute,                         WRAP_NONE, AND)
+libRR_rOP16("and", 2DM0,     Absolute,                         WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 2DSlow,   AbsoluteSlow,                     WRAP_NONE, AND)
 
-libRR_rOP8("and ", 3DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, AND)
-libRR_rOP16("and ", 3DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, AND16)
-libRR_rOP8("and ", 3DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, AND)
-libRR_rOP16("and ", 3DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, AND16)
+libRR_rOP8("and", 3DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, AND)
+libRR_rOP16("and", 3DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, AND16)
+libRR_rOP8("and", 3DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, AND)
+libRR_rOP16("and", 3DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 3DSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, AND)
 
-libRR_rOP8("and ", 39M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, AND)
-libRR_rOP16("and ", 39M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, AND16)
-libRR_rOP8("and ", 39M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, AND)
-libRR_rOP16("and ", 39M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, AND16)
+libRR_rOP8("and", 39M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, AND)
+libRR_rOP16("and", 39M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, AND16)
+libRR_rOP8("and", 39M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, AND)
+libRR_rOP16("and", 39M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 39Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, AND)
 
-libRR_rOP8("and ", 2FM1,     AbsoluteLong,                     WRAP_NONE, AND)
-libRR_rOP16("and ", 2FM0,     AbsoluteLong,                     WRAP_NONE, AND16)
+libRR_rOP8("and", 2FM1,     AbsoluteLong,                     WRAP_NONE, AND)
+libRR_rOP16("and", 2FM0,     AbsoluteLong,                     WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 2FSlow,   AbsoluteLongSlow,                 WRAP_NONE, AND)
 
-libRR_rOP8("and ", 3FM1,     AbsoluteLongIndexedX,             WRAP_NONE, AND)
-libRR_rOP16("and ", 3FM0,     AbsoluteLongIndexedX,             WRAP_NONE, AND16)
+libRR_rOP8("and", 3FM1,     AbsoluteLongIndexedX,             WRAP_NONE, AND)
+libRR_rOP16("and", 3FM0,     AbsoluteLongIndexedX,             WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 3FSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, AND)
 
-libRR_rOP8("and ", 23M1,     StackRelative,                    WRAP_NONE, AND)
-libRR_rOP16("and ", 23M0,     StackRelative,                    WRAP_NONE, AND16)
+libRR_rOP8("and", 23M1,     StackRelative,                    WRAP_NONE, AND)
+libRR_rOP16("and", 23M0,     StackRelative,                    WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 23Slow,   StackRelativeSlow,                WRAP_NONE, AND)
 
-libRR_rOP8("and ", 33M1,     StackRelativeIndirectIndexed,     WRAP_NONE, AND)
-libRR_rOP16("and ", 33M0,     StackRelativeIndirectIndexed,     WRAP_NONE, AND16)
+libRR_rOP8("and", 33M1,     StackRelativeIndirectIndexed,     WRAP_NONE, AND)
+libRR_rOP16("and", 33M0,     StackRelativeIndirectIndexed,     WRAP_NONE, AND16)
 libRR_rOPM("and ropM", 33Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, AND)
 
 /* ASL ********************************************************************* */
@@ -427,23 +427,23 @@ static void Op0ASlow (void)
 	}
 }
 
-libRR_mOP8("asl ", 06M1,     Direct,                           WRAP_BANK, ASL)
-libRR_mOP16("asl ", 06M0,     Direct,                           WRAP_BANK, ASL)
+libRR_mOP8("asl", 06M1,     Direct,                           WRAP_BANK, ASL)
+libRR_mOP16("asl", 06M0,     Direct,                           WRAP_BANK, ASL)
 libRR_mOPM("asl, mopM", 06Slow,   DirectSlow,                       WRAP_BANK, ASL)
 
-libRR_mOP8("asl ", 16E1,     DirectIndexedXE1,                 WRAP_BANK, ASL)
-libRR_mOP8("asl ", 16E0M1,   DirectIndexedXE0,                 WRAP_BANK, ASL)
-libRR_mOP16("asl ", 16E0M0,   DirectIndexedXE0,                 WRAP_BANK, ASL)
+libRR_mOP8("asl", 16E1,     DirectIndexedXE1,                 WRAP_BANK, ASL)
+libRR_mOP8("asl", 16E0M1,   DirectIndexedXE0,                 WRAP_BANK, ASL)
+libRR_mOP16("asl", 16E0M0,   DirectIndexedXE0,                 WRAP_BANK, ASL)
 libRR_mOPM("asl, mopM", 16Slow,   DirectIndexedXSlow,               WRAP_BANK, ASL)
 
-libRR_mOP8("asl ", 0EM1,     Absolute,                         WRAP_NONE, ASL)
-libRR_mOP16("asl ", 0EM0,     Absolute,                         WRAP_NONE, ASL)
+libRR_mOP8("asl", 0EM1,     Absolute,                         WRAP_NONE, ASL)
+libRR_mOP16("asl", 0EM0,     Absolute,                         WRAP_NONE, ASL)
 libRR_mOPM("asl, mopM", 0ESlow,   AbsoluteSlow,                     WRAP_NONE, ASL)
 
-libRR_mOP8("asl ", 1EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ASL)
-libRR_mOP16("asl ", 1EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ASL)
-libRR_mOP8("asl ", 1EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ASL)
-libRR_mOP16("asl ", 1EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ASL)
+libRR_mOP8("asl", 1EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ASL)
+libRR_mOP16("asl", 1EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ASL)
+libRR_mOP8("asl", 1EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ASL)
+libRR_mOP16("asl", 1EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ASL)
 libRR_mOPM("asl, mopM", 1ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, ASL)
 
 /* BIT ********************************************************************* */
@@ -451,7 +451,7 @@ libRR_mOPM("asl, mopM", 1ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, A
 static void Op89M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "BIT #%int%", 0x89, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "BIT.B #%int% ;Immediate8", 0x89, 2, libRR_temp);
 	ICPU._Zero = Registers.AL & libRR_temp;
 }
 
@@ -471,23 +471,23 @@ static void Op89Slow (void)
 		ICPU._Zero = (Registers.A.W & Immediate16Slow(READ)) != 0;
 }
 
-libRR_rOP8("bit ", 24M1,     Direct,                           WRAP_BANK, BIT)
-libRR_rOP16("bit ", 24M0,     Direct,                           WRAP_BANK, BIT16)
+libRR_rOP8("bit", 24M1,     Direct,                           WRAP_BANK, BIT)
+libRR_rOP16("bit", 24M0,     Direct,                           WRAP_BANK, BIT16)
 libRR_rOPM("bit ropM", 24Slow,   DirectSlow,                       WRAP_BANK, BIT)
 
-libRR_rOP8("bit ", 34E1,     DirectIndexedXE1,                 WRAP_BANK, BIT)
-libRR_rOP8("bit ", 34E0M1,   DirectIndexedXE0,                 WRAP_BANK, BIT)
-libRR_rOP16("bit ", 34E0M0,   DirectIndexedXE0,                 WRAP_BANK, BIT16)
+libRR_rOP8("bit", 34E1,     DirectIndexedXE1,                 WRAP_BANK, BIT)
+libRR_rOP8("bit", 34E0M1,   DirectIndexedXE0,                 WRAP_BANK, BIT)
+libRR_rOP16("bit", 34E0M0,   DirectIndexedXE0,                 WRAP_BANK, BIT16)
 libRR_rOPM("bit ropM", 34Slow,   DirectIndexedXSlow,               WRAP_BANK, BIT)
 
-libRR_rOP8("bit ", 2CM1,     Absolute,                         WRAP_NONE, BIT)
-libRR_rOP16("bit ", 2CM0,     Absolute,                         WRAP_NONE, BIT16)
+libRR_rOP8("bit", 2CM1,     Absolute,                         WRAP_NONE, BIT)
+libRR_rOP16("bit", 2CM0,     Absolute,                         WRAP_NONE, BIT16)
 libRR_rOPM("bit ropM", 2CSlow,   AbsoluteSlow,                     WRAP_NONE, BIT)
 
-libRR_rOP8("bit ", 3CM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, BIT)
-libRR_rOP16("bit ", 3CM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, BIT16)
-libRR_rOP8("bit ", 3CM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, BIT)
-libRR_rOP16("bit ", 3CM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, BIT16)
+libRR_rOP8("bit", 3CM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, BIT)
+libRR_rOP16("bit", 3CM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, BIT16)
+libRR_rOP8("bit", 3CM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, BIT)
+libRR_rOP16("bit", 3CM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, BIT16)
 libRR_rOPM("bit ropM", 3CSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, BIT)
 
 /* CMP ********************************************************************* */
@@ -498,7 +498,7 @@ static void OpC9M1 (void)
 
 	uint32 libRR_temp = Immediate8(READ);
 	Int16 = (int16) Registers.AL - (int16) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "CMP #%int%", 0xC9, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "CMP.B #%int% ;Immediate8 ", 0xC9, 2, libRR_temp);
 	ICPU._Carry = Int16 >= 0;
 	SetZN8((uint8) Int16);
 }
@@ -508,7 +508,7 @@ static void OpC9M0 (void)
 	int32 Int32;
 	uint32 libRR_temp = Immediate16(READ);
 	Int32 = (int32) Registers.A.W - (int32) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 3, "CMP.W #%int%", 0xC9, 3, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 3, "CMP.W #%int% ;Immediate8", 0xC9, 3, libRR_temp);
 	ICPU._Carry = Int32 >= 0;
 	SetZN16((uint16) Int32);
 }
@@ -519,7 +519,7 @@ static void OpC9Slow (void)
 	{
 		uint32 libRR_temp = Immediate8(READ);
 		int16	Int16 = (int16) Registers.AL - (int16) libRR_temp;
-		libRR_log_instruction_1int(Registers.PCw - 2, "CMP #%int%", 0xC9, 2, libRR_temp);
+		libRR_log_instruction_1int(Registers.PCw - 2, "CMP.B #%int%", 0xC9, 2, libRR_temp);
 		ICPU._Carry = Int16 >= 0;
 		SetZN8((uint8) Int16);
 	}
@@ -533,70 +533,70 @@ static void OpC9Slow (void)
 	}
 }
 
-libRR_rOP8("cmp ", C5M1,     Direct,                           WRAP_BANK, CMP)
-libRR_rOP16("cmp ", C5M0,     Direct,                           WRAP_BANK, CMP16)
+libRR_rOP8("cmp", C5M1,     Direct,                           WRAP_BANK, CMP)
+libRR_rOP16("cmp", C5M0,     Direct,                           WRAP_BANK, CMP16)
 libRR_rOPM("cmp ropM", C5Slow,   DirectSlow,                       WRAP_BANK, CMP)
 
-libRR_rOP8("cmp ", D5E1,     DirectIndexedXE1,                 WRAP_BANK, CMP)
-libRR_rOP8("cmp ", D5E0M1,   DirectIndexedXE0,                 WRAP_BANK, CMP)
-libRR_rOP16("cmp ", D5E0M0,   DirectIndexedXE0,                 WRAP_BANK, CMP16)
+libRR_rOP8("cmp", D5E1,     DirectIndexedXE1,                 WRAP_BANK, CMP)
+libRR_rOP8("cmp", D5E0M1,   DirectIndexedXE0,                 WRAP_BANK, CMP)
+libRR_rOP16("cmp", D5E0M0,   DirectIndexedXE0,                 WRAP_BANK, CMP16)
 libRR_rOPM("cmp ropM", D5Slow,   DirectIndexedXSlow,               WRAP_BANK, CMP)
 
-libRR_rOP8("cmp ", D2E1,     DirectIndirectE1,                 WRAP_NONE, CMP)
-libRR_rOP8("cmp ", D2E0M1,   DirectIndirectE0,                 WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D2E0M0,   DirectIndirectE0,                 WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D2E1,     DirectIndirectE1,                 WRAP_NONE, CMP)
+libRR_rOP8("cmp", D2E0M1,   DirectIndirectE0,                 WRAP_NONE, CMP)
+libRR_rOP16("cmp", D2E0M0,   DirectIndirectE0,                 WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", D2Slow,   DirectIndirectSlow,               WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", C1E1,     DirectIndexedIndirectE1,          WRAP_NONE, CMP)
-libRR_rOP8("cmp ", C1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, CMP)
-libRR_rOP16("cmp ", C1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, CMP16)
+libRR_rOP8("cmp", C1E1,     DirectIndexedIndirectE1,          WRAP_NONE, CMP)
+libRR_rOP8("cmp", C1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, CMP)
+libRR_rOP16("cmp", C1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", C1Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", D1E1,     DirectIndirectIndexedE1,          WRAP_NONE, CMP)
-libRR_rOP8("cmp ", D1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, CMP16)
-libRR_rOP8("cmp ", D1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D1E1,     DirectIndirectIndexedE1,          WRAP_NONE, CMP)
+libRR_rOP8("cmp", D1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, CMP)
+libRR_rOP16("cmp", D1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, CMP)
+libRR_rOP16("cmp", D1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", D1Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", C7M1,     DirectIndirectLong,               WRAP_NONE, CMP)
-libRR_rOP16("cmp ", C7M0,     DirectIndirectLong,               WRAP_NONE, CMP16)
+libRR_rOP8("cmp", C7M1,     DirectIndirectLong,               WRAP_NONE, CMP)
+libRR_rOP16("cmp", C7M0,     DirectIndirectLong,               WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", C7Slow,   DirectIndirectLongSlow,           WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", D7M1,     DirectIndirectIndexedLong,        WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D7M0,     DirectIndirectIndexedLong,        WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D7M1,     DirectIndirectIndexedLong,        WRAP_NONE, CMP)
+libRR_rOP16("cmp", D7M0,     DirectIndirectIndexedLong,        WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", D7Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", CDM1,     Absolute,                         WRAP_NONE, CMP)
-libRR_rOP16("cmp ", CDM0,     Absolute,                         WRAP_NONE, CMP16)
+libRR_rOP8("cmp", CDM1,     Absolute,                         WRAP_NONE, CMP)
+libRR_rOP16("cmp", CDM0,     Absolute,                         WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", CDSlow,   AbsoluteSlow,                     WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", DDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, CMP)
-libRR_rOP16("cmp ", DDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, CMP16)
-libRR_rOP8("cmp ", DDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, CMP)
-libRR_rOP16("cmp ", DDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, CMP16)
+libRR_rOP8("cmp", DDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, CMP)
+libRR_rOP16("cmp", DDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, CMP16)
+libRR_rOP8("cmp", DDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, CMP)
+libRR_rOP16("cmp", DDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", DDSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", D9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, CMP16)
-libRR_rOP8("cmp ", D9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, CMP)
+libRR_rOP16("cmp", D9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, CMP)
+libRR_rOP16("cmp", D9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", D9Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", CFM1,     AbsoluteLong,                     WRAP_NONE, CMP)
-libRR_rOP16("cmp ", CFM0,     AbsoluteLong,                     WRAP_NONE, CMP16)
+libRR_rOP8("cmp", CFM1,     AbsoluteLong,                     WRAP_NONE, CMP)
+libRR_rOP16("cmp", CFM0,     AbsoluteLong,                     WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", CFSlow,   AbsoluteLongSlow,                 WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", DFM1,     AbsoluteLongIndexedX,             WRAP_NONE, CMP)
-libRR_rOP16("cmp ", DFM0,     AbsoluteLongIndexedX,             WRAP_NONE, CMP16)
+libRR_rOP8("cmp", DFM1,     AbsoluteLongIndexedX,             WRAP_NONE, CMP)
+libRR_rOP16("cmp", DFM0,     AbsoluteLongIndexedX,             WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", DFSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", C3M1,     StackRelative,                    WRAP_NONE, CMP)
-libRR_rOP16("cmp ", C3M0,     StackRelative,                    WRAP_NONE, CMP16)
+libRR_rOP8("cmp", C3M1,     StackRelative,                    WRAP_NONE, CMP)
+libRR_rOP16("cmp", C3M0,     StackRelative,                    WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", C3Slow,   StackRelativeSlow,                WRAP_NONE, CMP)
 
-libRR_rOP8("cmp ", D3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, CMP)
-libRR_rOP16("cmp ", D3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, CMP16)
+libRR_rOP8("cmp", D3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, CMP)
+libRR_rOP16("cmp", D3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, CMP16)
 libRR_rOPM("cmp ropM", D3Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, CMP)
 
 /* CPX ********************************************************************* */
@@ -605,7 +605,7 @@ static void OpE0X1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	int16	Int16 = (int16) Registers.XL - (int16) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "CPX #%int%", 0xE0, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "CPX.B #%int%", 0xE0, 2, libRR_temp);
 	ICPU._Carry = Int16 >= 0;
 	SetZN8((uint8) Int16);
 }
@@ -639,12 +639,12 @@ static void OpE0Slow (void)
 	}
 }
 
-libRR_rOP8("cpx ", E4X1,     Direct,                           WRAP_BANK, CPX)
-libRR_rOP16("cpx ", E4X0,     Direct,                           WRAP_BANK, CPX16)
+libRR_rOP8("cpx", E4X1,     Direct,                           WRAP_BANK, CPX)
+libRR_rOP16("cpx", E4X0,     Direct,                           WRAP_BANK, CPX16)
 libRR_rOPX("cpx ropX", E4Slow,   DirectSlow,                       WRAP_BANK, CPX)
 
-libRR_rOP8("cpx ", ECX1,     Absolute,                         WRAP_NONE, CPX)
-libRR_rOP16("cpx ", ECX0,     Absolute,                         WRAP_NONE, CPX16)
+libRR_rOP8("cpx", ECX1,     Absolute,                         WRAP_NONE, CPX)
+libRR_rOP16("cpx", ECX0,     Absolute,                         WRAP_NONE, CPX16)
 libRR_rOPX("cpx ropX", ECSlow,   AbsoluteSlow,                     WRAP_NONE, CPX)
 
 /* CPY ********************************************************************* */
@@ -653,7 +653,7 @@ static void OpC0X1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	int16	Int16 = (int16) Registers.YL - (int16) libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "CPY #%int%", 0xC0, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "CPY.B #%int%", 0xC0, 2, libRR_temp);
 	ICPU._Carry = Int16 >= 0;
 	SetZN8((uint8) Int16);
 }
@@ -687,12 +687,12 @@ static void OpC0Slow (void)
 	}
 }
 
-libRR_rOP8("cpy ", C4X1,     Direct,                           WRAP_BANK, CPY)
-libRR_rOP16("cpy ", C4X0,     Direct,                           WRAP_BANK, CPY16)
+libRR_rOP8("cpy", C4X1,     Direct,                           WRAP_BANK, CPY)
+libRR_rOP16("cpy", C4X0,     Direct,                           WRAP_BANK, CPY16)
 libRR_rOPX("cpy ropX", C4Slow,   DirectSlow,                       WRAP_BANK, CPY)
 
-libRR_rOP8("cpy ", CCX1,     Absolute,                         WRAP_NONE, CPY)
-libRR_rOP16("cpy ", CCX0,     Absolute,                         WRAP_NONE, CPY16)
+libRR_rOP8("cpy", CCX1,     Absolute,                         WRAP_NONE, CPY)
+libRR_rOP16("cpy", CCX0,     Absolute,                         WRAP_NONE, CPY16)
 libRR_rOPX("cpy ropX", CCSlow,   AbsoluteSlow,                     WRAP_NONE, CPY)
 
 /* DEC ********************************************************************* */
@@ -731,23 +731,23 @@ static void Op3ASlow (void)
 	}
 }
 
-libRR_mOP8("dec ", C6M1,     Direct,                           WRAP_BANK, DEC)
-libRR_mOP16("dec ", C6M0,     Direct,                           WRAP_BANK, DEC)
+libRR_mOP8("dec", C6M1,     Direct,                           WRAP_BANK, DEC)
+libRR_mOP16("dec", C6M0,     Direct,                           WRAP_BANK, DEC)
 libRR_mOPM("dec mopM", C6Slow,   DirectSlow,                       WRAP_BANK, DEC)
 
-libRR_mOP8("dec ", D6E1,     DirectIndexedXE1,                 WRAP_BANK, DEC)
-libRR_mOP8("dec ", D6E0M1,   DirectIndexedXE0,                 WRAP_BANK, DEC)
-libRR_mOP16("dec ", D6E0M0,   DirectIndexedXE0,                 WRAP_BANK, DEC)
+libRR_mOP8("dec", D6E1,     DirectIndexedXE1,                 WRAP_BANK, DEC)
+libRR_mOP8("dec", D6E0M1,   DirectIndexedXE0,                 WRAP_BANK, DEC)
+libRR_mOP16("dec", D6E0M0,   DirectIndexedXE0,                 WRAP_BANK, DEC)
 libRR_mOPM("dec mopM", D6Slow,   DirectIndexedXSlow,               WRAP_BANK, DEC)
 
-libRR_mOP8("dec ", CEM1,     Absolute,                         WRAP_NONE, DEC)
-libRR_mOP16("dec ", CEM0,     Absolute,                         WRAP_NONE, DEC)
+libRR_mOP8("dec", CEM1,     Absolute,                         WRAP_NONE, DEC)
+libRR_mOP16("dec", CEM0,     Absolute,                         WRAP_NONE, DEC)
 libRR_mOPM("dec mopM", CESlow,   AbsoluteSlow,                     WRAP_NONE, DEC)
 
-libRR_mOP8("dec ", DEM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, DEC)
-libRR_mOP16("dec ", DEM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, DEC)
-libRR_mOP8("dec ", DEM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, DEC)
-libRR_mOP16("dec ", DEM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, DEC)
+libRR_mOP8("dec", DEM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, DEC)
+libRR_mOP16("dec", DEM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, DEC)
+libRR_mOP8("dec", DEM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, DEC)
+libRR_mOP16("dec", DEM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, DEC)
 libRR_mOPM("dec mopM", DESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, DEC)
 
 /* EOR ********************************************************************* */
@@ -756,7 +756,7 @@ static void Op49M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	Registers.AL ^= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "EOR #%int%", 0x49, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "EOR.B #%int%", 0x49, 2, libRR_temp);
 	SetZN8(Registers.AL);
 }
 
@@ -786,70 +786,70 @@ static void Op49Slow (void)
 	}
 }
 
-libRR_rOP8("eor ", 45M1,     Direct,                           WRAP_BANK, EOR)
-libRR_rOP16("eor ", 45M0,     Direct,                           WRAP_BANK, EOR16)
+libRR_rOP8("eor", 45M1,     Direct,                           WRAP_BANK, EOR)
+libRR_rOP16("eor", 45M0,     Direct,                           WRAP_BANK, EOR16)
 libRR_rOPM("eor ropM", 45Slow,   DirectSlow,                       WRAP_BANK, EOR)
 
-libRR_rOP8("eor ", 55E1,     DirectIndexedXE1,                 WRAP_BANK, EOR)
-libRR_rOP8("eor ", 55E0M1,   DirectIndexedXE0,                 WRAP_BANK, EOR)
-libRR_rOP16("eor ", 55E0M0,   DirectIndexedXE0,                 WRAP_BANK, EOR16)
+libRR_rOP8("eor", 55E1,     DirectIndexedXE1,                 WRAP_BANK, EOR)
+libRR_rOP8("eor", 55E0M1,   DirectIndexedXE0,                 WRAP_BANK, EOR)
+libRR_rOP16("eor", 55E0M0,   DirectIndexedXE0,                 WRAP_BANK, EOR16)
 libRR_rOPM("eor ropM", 55Slow,   DirectIndexedXSlow,               WRAP_BANK, EOR)
 
-libRR_rOP8("eor ", 52E1,     DirectIndirectE1,                 WRAP_NONE, EOR)
-libRR_rOP8("eor ", 52E0M1,   DirectIndirectE0,                 WRAP_NONE, EOR)
-libRR_rOP16("eor ", 52E0M0,   DirectIndirectE0,                 WRAP_NONE, EOR16)
+libRR_rOP8("eor", 52E1,     DirectIndirectE1,                 WRAP_NONE, EOR)
+libRR_rOP8("eor", 52E0M1,   DirectIndirectE0,                 WRAP_NONE, EOR)
+libRR_rOP16("eor", 52E0M0,   DirectIndirectE0,                 WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 52Slow,   DirectIndirectSlow,               WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 41E1,     DirectIndexedIndirectE1,          WRAP_NONE, EOR)
-libRR_rOP8("eor ", 41E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, EOR)
-libRR_rOP16("eor ", 41E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, EOR16)
+libRR_rOP8("eor", 41E1,     DirectIndexedIndirectE1,          WRAP_NONE, EOR)
+libRR_rOP8("eor", 41E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, EOR)
+libRR_rOP16("eor", 41E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 41Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 51E1,     DirectIndirectIndexedE1,          WRAP_NONE, EOR)
-libRR_rOP8("eor ", 51E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, EOR)
-libRR_rOP16("eor ", 51E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, EOR16)
-libRR_rOP8("eor ", 51E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, EOR)
-libRR_rOP16("eor ", 51E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, EOR16)
+libRR_rOP8("eor", 51E1,     DirectIndirectIndexedE1,          WRAP_NONE, EOR)
+libRR_rOP8("eor", 51E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, EOR)
+libRR_rOP16("eor", 51E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, EOR16)
+libRR_rOP8("eor", 51E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, EOR)
+libRR_rOP16("eor", 51E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 51Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 47M1,     DirectIndirectLong,               WRAP_NONE, EOR)
-libRR_rOP16("eor ", 47M0,     DirectIndirectLong,               WRAP_NONE, EOR16)
+libRR_rOP8("eor", 47M1,     DirectIndirectLong,               WRAP_NONE, EOR)
+libRR_rOP16("eor", 47M0,     DirectIndirectLong,               WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 47Slow,   DirectIndirectLongSlow,           WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 57M1,     DirectIndirectIndexedLong,        WRAP_NONE, EOR)
-libRR_rOP16("eor ", 57M0,     DirectIndirectIndexedLong,        WRAP_NONE, EOR16)
+libRR_rOP8("eor", 57M1,     DirectIndirectIndexedLong,        WRAP_NONE, EOR)
+libRR_rOP16("eor", 57M0,     DirectIndirectIndexedLong,        WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 57Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 4DM1,     Absolute,                         WRAP_NONE, EOR)
-libRR_rOP16("eor ", 4DM0,     Absolute,                         WRAP_NONE, EOR16)
+libRR_rOP8("eor", 4DM1,     Absolute,                         WRAP_NONE, EOR)
+libRR_rOP16("eor", 4DM0,     Absolute,                         WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 4DSlow,   AbsoluteSlow,                     WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 5DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, EOR)
-libRR_rOP16("eor ", 5DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, EOR16)
-libRR_rOP8("eor ", 5DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, EOR)
-libRR_rOP16("eor ", 5DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, EOR16)
+libRR_rOP8("eor", 5DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, EOR)
+libRR_rOP16("eor", 5DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, EOR16)
+libRR_rOP8("eor", 5DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, EOR)
+libRR_rOP16("eor", 5DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 5DSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 59M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, EOR)
-libRR_rOP16("eor ", 59M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, EOR16)
-libRR_rOP8("eor ", 59M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, EOR)
-libRR_rOP16("eor ", 59M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, EOR16)
+libRR_rOP8("eor", 59M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, EOR)
+libRR_rOP16("eor", 59M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, EOR16)
+libRR_rOP8("eor", 59M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, EOR)
+libRR_rOP16("eor", 59M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 59Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 4FM1,     AbsoluteLong,                     WRAP_NONE, EOR)
-libRR_rOP16("eor ", 4FM0,     AbsoluteLong,                     WRAP_NONE, EOR16)
+libRR_rOP8("eor", 4FM1,     AbsoluteLong,                     WRAP_NONE, EOR)
+libRR_rOP16("eor", 4FM0,     AbsoluteLong,                     WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 4FSlow,   AbsoluteLongSlow,                 WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 5FM1,     AbsoluteLongIndexedX,             WRAP_NONE, EOR)
-libRR_rOP16("eor ", 5FM0,     AbsoluteLongIndexedX,             WRAP_NONE, EOR16)
+libRR_rOP8("eor", 5FM1,     AbsoluteLongIndexedX,             WRAP_NONE, EOR)
+libRR_rOP16("eor", 5FM0,     AbsoluteLongIndexedX,             WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 5FSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 43M1,     StackRelative,                    WRAP_NONE, EOR)
-libRR_rOP16("eor ", 43M0,     StackRelative,                    WRAP_NONE, EOR16)
+libRR_rOP8("eor", 43M1,     StackRelative,                    WRAP_NONE, EOR)
+libRR_rOP16("eor", 43M0,     StackRelative,                    WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 43Slow,   StackRelativeSlow,                WRAP_NONE, EOR)
 
-libRR_rOP8("eor ", 53M1,     StackRelativeIndirectIndexed,     WRAP_NONE, EOR)
-libRR_rOP16("eor ", 53M0,     StackRelativeIndirectIndexed,     WRAP_NONE, EOR16)
+libRR_rOP8("eor", 53M1,     StackRelativeIndirectIndexed,     WRAP_NONE, EOR)
+libRR_rOP16("eor", 53M0,     StackRelativeIndirectIndexed,     WRAP_NONE, EOR16)
 libRR_rOPM("eor ropM", 53Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, EOR)
 
 /* INC ********************************************************************* */
@@ -888,23 +888,23 @@ static void Op1ASlow (void)
 	}
 }
 
-libRR_mOP8("inc ", E6M1,     Direct,                           WRAP_BANK, INC)
-libRR_mOP16("inc ", E6M0,     Direct,                           WRAP_BANK, INC)
+libRR_mOP8("inc", E6M1,     Direct,                           WRAP_BANK, INC)
+libRR_mOP16("inc", E6M0,     Direct,                           WRAP_BANK, INC)
 libRR_mOPM("inc mopM", E6Slow,   DirectSlow,                       WRAP_BANK, INC)
 
-libRR_mOP8("inc ", F6E1,     DirectIndexedXE1,                 WRAP_BANK, INC)
-libRR_mOP8("inc ", F6E0M1,   DirectIndexedXE0,                 WRAP_BANK, INC)
-libRR_mOP16("inc ", F6E0M0,   DirectIndexedXE0,                 WRAP_BANK, INC)
+libRR_mOP8("inc", F6E1,     DirectIndexedXE1,                 WRAP_BANK, INC)
+libRR_mOP8("inc", F6E0M1,   DirectIndexedXE0,                 WRAP_BANK, INC)
+libRR_mOP16("inc", F6E0M0,   DirectIndexedXE0,                 WRAP_BANK, INC)
 libRR_mOPM("inc mopM", F6Slow,   DirectIndexedXSlow,               WRAP_BANK, INC)
 
-libRR_mOP8("inc ", EEM1,     Absolute,                         WRAP_NONE, INC)
-libRR_mOP16("inc ", EEM0,     Absolute,                         WRAP_NONE, INC)
+libRR_mOP8("inc", EEM1,     Absolute,                         WRAP_NONE, INC)
+libRR_mOP16("inc", EEM0,     Absolute,                         WRAP_NONE, INC)
 libRR_mOPM("inc mopM", EESlow,   AbsoluteSlow,                     WRAP_NONE, INC)
 
-libRR_mOP8("inc ", FEM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, INC)
-libRR_mOP16("inc ", FEM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, INC)
-libRR_mOP8("inc ", FEM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, INC)
-libRR_mOP16("inc ", FEM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, INC)
+libRR_mOP8("inc", FEM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, INC)
+libRR_mOP16("inc", FEM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, INC)
+libRR_mOP8("inc", FEM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, INC)
+libRR_mOP16("inc", FEM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, INC)
 libRR_mOPM("inc mopM", FESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, INC)
 
 /* LDA ********************************************************************* */
@@ -912,7 +912,7 @@ libRR_mOPM("inc mopM", FESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, IN
 static void OpA9M1 (void)
 {
 	Registers.AL = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "LDA #%int%; Immediate8", 0xA9, S9xOpLengthsM1X0[0xA9], Registers.AL);
+	libRR_log_instruction_1int(Registers.PCw - 2, "LDA.B #%int%; Immediate8", 0xA9, S9xOpLengthsM1X0[0xA9], Registers.AL);
 	SetZN8(Registers.AL);
 }
 
@@ -938,71 +938,80 @@ static void OpA9Slow (void)
 	}
 }
 
-libRR_rOP8("lda ", A5M1,     Direct,                           WRAP_BANK, LDA)
-libRR_rOP16("lda ", A5M0,     Direct,                           WRAP_BANK, LDA16)
+// 0xA5 LDA x
+libRR_rOP8("lda", A5M1,     Direct,                           WRAP_BANK, LDA)
+libRR_rOP16("lda", A5M0,     Direct,                           WRAP_BANK, LDA16)
 libRR_rOPM("lda ropM", A5Slow,   DirectSlow,                       WRAP_BANK, LDA)
 
-libRR_rOP8("lda ", B5E1,     DirectIndexedXE1,                 WRAP_BANK, LDA)
-libRR_rOP8("lda ", B5E0M1,   DirectIndexedXE0,                 WRAP_BANK, LDA)
-libRR_rOP16("lda ", B5E0M0,   DirectIndexedXE0,                 WRAP_BANK, LDA16)
+// 0xB5 LDA x,X
+libRR_rOP8("lda", B5E1,     DirectIndexedXE1,                 WRAP_BANK, LDA)
+libRR_rOP8("lda", B5E0M1,   DirectIndexedXE0,                 WRAP_BANK, LDA)
+libRR_rOP16("lda", B5E0M0,   DirectIndexedXE0,                 WRAP_BANK, LDA16)
 libRR_rOPM("lda ropM", B5Slow,   DirectIndexedXSlow,               WRAP_BANK, LDA)
 
-libRR_rOP8("lda ", B2E1,     DirectIndirectE1,                 WRAP_NONE, LDA)
-libRR_rOP8("lda ", B2E0M1,   DirectIndirectE0,                 WRAP_NONE, LDA)
-libRR_rOP16("lda ", B2E0M0,   DirectIndirectE0,                 WRAP_NONE, LDA16)
+// 0xB2 LDA (x)
+libRR_rOP8("lda", B2E1,     DirectIndirectE1,                 WRAP_NONE, LDA)
+libRR_rOP8("lda", B2E0M1,   DirectIndirectE0,                 WRAP_NONE, LDA)
+libRR_rOP16("lda", B2E0M0,   DirectIndirectE0,                 WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", B2Slow,   DirectIndirectSlow,               WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", A1E1,     DirectIndexedIndirectE1,          WRAP_NONE, LDA)
-libRR_rOP8("lda ", A1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, LDA)
-libRR_rOP16("lda ", A1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, LDA16)
+// 0xA1 LDA (x,X)
+libRR_rOP8("lda", A1E1,     DirectIndexedIndirectE1,          WRAP_NONE, LDA)
+libRR_rOP8("lda", A1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, LDA)
+libRR_rOP16("lda", A1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", A1Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", B1E1,     DirectIndirectIndexedE1,          WRAP_NONE, LDA)
-libRR_rOP8("lda ", B1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, LDA)
-libRR_rOP16("lda ", B1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, LDA16)
-libRR_rOP8("lda ", B1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, LDA)
-libRR_rOP16("lda ", B1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, LDA16)
+// 0xB1 LDA (x),Y
+libRR_rOP8("lda", B1E1,     DirectIndirectIndexedE1,          WRAP_NONE, LDA)
+libRR_rOP8("lda", B1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, LDA)
+libRR_rOP16("lda", B1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, LDA16)
+libRR_rOP8("lda", B1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, LDA)
+libRR_rOP16("lda", B1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", B1Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", A7M1,     DirectIndirectLong,               WRAP_NONE, LDA)
-libRR_rOP16("lda ", A7M0,     DirectIndirectLong,               WRAP_NONE, LDA16)
+// 0xA7 LDA [x]
+libRR_rOP8("lda", A7M1,     DirectIndirectLong,               WRAP_NONE, LDA)
+libRR_rOP16("lda", A7M0,     DirectIndirectLong,               WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", A7Slow,   DirectIndirectLongSlow,           WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", B7M1,     DirectIndirectIndexedLong,        WRAP_NONE, LDA)
-libRR_rOP16("lda ", B7M0,     DirectIndirectIndexedLong,        WRAP_NONE, LDA16)
+// 0xB7 LDA [x],Y
+libRR_rOP8("lda", B7M1,     DirectIndirectIndexedLong,        WRAP_NONE, LDA)
+libRR_rOP16("lda", B7M0,     DirectIndirectIndexedLong,        WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", B7Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", ADM1,     Absolute,                         WRAP_NONE, LDA)
-libRR_rOP16("lda ", ADM0,     Absolute,                         WRAP_NONE, LDA16)
+// 0xAD LDA 16bit
+libRR_rOP8("lda", ADM1,     Absolute,                         WRAP_NONE, LDA)
+libRR_rOP16("lda", ADM0,     Absolute,                         WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", ADSlow,   AbsoluteSlow,                     WRAP_NONE, LDA)
 
 //TODO: sort out AbsoluteIndexedXX1 ,X in rOP8
-libRR_rOP8("lda ", BDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, LDA)
-libRR_rOP16("lda ", BDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, LDA16)
-libRR_rOP8("lda ", BDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, LDA)
-libRR_rOP16("lda ", BDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, LDA16)
+libRR_rOP8("lda", BDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, LDA)
+libRR_rOP16("lda", BDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, LDA16)
+libRR_rOP8("lda", BDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, LDA)
+libRR_rOP16("lda", BDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", BDSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", B9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, LDA)
-libRR_rOP16("lda ", B9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, LDA16)
-libRR_rOP8("lda ", B9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, LDA)
-libRR_rOP16("lda ", B9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, LDA16)
+libRR_rOP8("lda", B9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, LDA)
+libRR_rOP16("lda", B9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, LDA16)
+libRR_rOP8("lda", B9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, LDA)
+libRR_rOP16("lda", B9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", B9Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", AFM1,     AbsoluteLong,                     WRAP_NONE, LDA)
-libRR_rOP16("lda ", AFM0,     AbsoluteLong,                     WRAP_NONE, LDA16)
+libRR_rOP8("lda", AFM1,     AbsoluteLong,                     WRAP_NONE, LDA)
+libRR_rOP16("lda", AFM0,     AbsoluteLong,                     WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", AFSlow,   AbsoluteLongSlow,                 WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", BFM1,     AbsoluteLongIndexedX,             WRAP_NONE, LDA)
-libRR_rOP16("lda ", BFM0,     AbsoluteLongIndexedX,             WRAP_NONE, LDA16)
+libRR_rOP8("lda", BFM1,     AbsoluteLongIndexedX,             WRAP_NONE, LDA)
+libRR_rOP16("lda", BFM0,     AbsoluteLongIndexedX,             WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", BFSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", A3M1,     StackRelative,                    WRAP_NONE, LDA)
-libRR_rOP16("lda ", A3M0,     StackRelative,                    WRAP_NONE, LDA16)
+// 0xA3 LDA x,S
+libRR_rOP8("lda", A3M1,     StackRelative,                    WRAP_NONE, LDA)
+libRR_rOP16("lda", A3M0,     StackRelative,                    WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", A3Slow,   StackRelativeSlow,                WRAP_NONE, LDA)
 
-libRR_rOP8("lda ", B3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, LDA)
-libRR_rOP16("lda ", B3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, LDA16)
+libRR_rOP8("lda", B3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, LDA)
+libRR_rOP16("lda", B3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, LDA16)
 libRR_rOPM("lda ropM", B3Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, LDA)
 
 /* LDX ********************************************************************* */
@@ -1010,14 +1019,14 @@ libRR_rOPM("lda ropM", B3Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, LD
 static void OpA2X1 (void)
 {
 	Registers.XL = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "LDX #%int%", 0xA2, 2, Registers.XL);
+	libRR_log_instruction_1int(Registers.PCw - 2, "LDX.B #%int% ;Immediate8", 0xA2, 2, Registers.XL);
 	SetZN8(Registers.XL);
 }
 
 static void OpA2X0 (void)
 {
 	Registers.X.W = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 3, "LDX.W #%int%", 0xA2, 3, Registers.X.W);
+	libRR_log_instruction_1int(Registers.PCw - 3, "LDX.W #%int% ; Immediate16", 0xA2, 3, Registers.X.W);
 	SetZN16(Registers.X.W);
 }
 
@@ -1026,7 +1035,7 @@ static void OpA2Slow (void)
 	if (CheckIndex())
 	{
 		Registers.XL = Immediate8Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 2, "LDX #%int%", 0xA2, 2, Registers.XL);
+		libRR_log_instruction_1int(Registers.PCw - 2, "LDX.B #%int%", 0xA2, 2, Registers.XL);
 		SetZN8(Registers.XL);
 	}
 	else
@@ -1037,21 +1046,21 @@ static void OpA2Slow (void)
 	}
 }
 
-libRR_rOP8("ldx ", A6X1,     Direct,                           WRAP_BANK, LDX)
-libRR_rOP16("ldx ", A6X0,     Direct,                           WRAP_BANK, LDX16)
+libRR_rOP8("ldx", A6X1,     Direct,                           WRAP_BANK, LDX)
+libRR_rOP16("ldx", A6X0,     Direct,                           WRAP_BANK, LDX16)
 libRR_rOPX("ropX", A6Slow,   DirectSlow,                       WRAP_BANK, LDX)
 
-libRR_rOP8("ldx ", B6E1,     DirectIndexedYE1,                 WRAP_BANK, LDX)
-libRR_rOP8("ldx ", B6E0X1,   DirectIndexedYE0,                 WRAP_BANK, LDX)
-libRR_rOP16("ldx ", B6E0X0,   DirectIndexedYE0,                 WRAP_BANK, LDX16)
+libRR_rOP8("ldx", B6E1,     DirectIndexedYE1,                 WRAP_BANK, LDX)
+libRR_rOP8("ldx", B6E0X1,   DirectIndexedYE0,                 WRAP_BANK, LDX)
+libRR_rOP16("ldx", B6E0X0,   DirectIndexedYE0,                 WRAP_BANK, LDX16)
 libRR_rOPX("ropX", B6Slow,   DirectIndexedYSlow,               WRAP_BANK, LDX)
 
-libRR_rOP8("ldx ", AEX1,     Absolute,                         WRAP_BANK, LDX)
-libRR_rOP16("ldx ", AEX0,     Absolute,                         WRAP_BANK, LDX16)
+libRR_rOP8("ldx", AEX1,     Absolute,                         WRAP_BANK, LDX)
+libRR_rOP16("ldx", AEX0,     Absolute,                         WRAP_BANK, LDX16)
 libRR_rOPX("ropX", AESlow,   AbsoluteSlow,                     WRAP_BANK, LDX)
 
-libRR_rOP8("ldx ", BEX1,     AbsoluteIndexedYX1,               WRAP_BANK, LDX)
-libRR_rOP16("ldx ", BEX0,     AbsoluteIndexedYX0,               WRAP_BANK, LDX16)
+libRR_rOP8("ldx", BEX1,     AbsoluteIndexedYX1,               WRAP_BANK, LDX)
+libRR_rOP16("ldx", BEX0,     AbsoluteIndexedYX0,               WRAP_BANK, LDX16)
 libRR_rOPX("ropX", BESlow,   AbsoluteIndexedYSlow,             WRAP_BANK, LDX)
 
 /* LDY ********************************************************************* */
@@ -1059,14 +1068,14 @@ libRR_rOPX("ropX", BESlow,   AbsoluteIndexedYSlow,             WRAP_BANK, LDX)
 static void OpA0X1 (void)
 {
 	Registers.YL = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "LDY #%int%", 0xA0, 2, Registers.YL);
+	libRR_log_instruction_1int(Registers.PCw - 2, "LDY.B #%int% ;Immediate8", 0xA0, 2, Registers.YL);
 	SetZN8(Registers.YL);
 }
 
 static void OpA0X0 (void)
 {
 	Registers.Y.W = Immediate16(READ);
-	libRR_log_instruction_1int(Registers.PCw - 3, "LDY.W #%int%", 0xA0, 3, Registers.Y.W);
+	libRR_log_instruction_1int(Registers.PCw - 3, "LDY.W #%int% ;Immediate16", 0xA0, 3, Registers.Y.W);
 	SetZN16(Registers.Y.W);
 }
 
@@ -1075,7 +1084,7 @@ static void OpA0Slow (void)
 	if (CheckIndex())
 	{
 		Registers.YL = Immediate8Slow(READ);
-		libRR_log_instruction_1int(Registers.PCw - 2, "LDY #%int%", 0xA0, 2, Registers.YL);
+		libRR_log_instruction_1int(Registers.PCw - 2, "LDY.B #%int%", 0xA0, 2, Registers.YL);
 		SetZN8(Registers.YL);
 	}
 	else
@@ -1086,21 +1095,21 @@ static void OpA0Slow (void)
 	}
 }
 
-libRR_rOP8("ldy ", A4X1,     Direct,                           WRAP_BANK, LDY)
-libRR_rOP16("ldy ", A4X0,     Direct,                           WRAP_BANK, LDY16)
+libRR_rOP8("ldy", A4X1,     Direct,                           WRAP_BANK, LDY)
+libRR_rOP16("ldy", A4X0,     Direct,                           WRAP_BANK, LDY16)
 libRR_rOPX("ropX", A4Slow,   DirectSlow,                       WRAP_BANK, LDY)
 
-libRR_rOP8("ldy ", B4E1,     DirectIndexedXE1,                 WRAP_BANK, LDY)
-libRR_rOP8("ldy ", B4E0X1,   DirectIndexedXE0,                 WRAP_BANK, LDY)
-libRR_rOP16("ldy ", B4E0X0,   DirectIndexedXE0,                 WRAP_BANK, LDY16)
+libRR_rOP8("ldy", B4E1,     DirectIndexedXE1,                 WRAP_BANK, LDY)
+libRR_rOP8("ldy", B4E0X1,   DirectIndexedXE0,                 WRAP_BANK, LDY)
+libRR_rOP16("ldy", B4E0X0,   DirectIndexedXE0,                 WRAP_BANK, LDY16)
 libRR_rOPX("ropX", B4Slow,   DirectIndexedXSlow,               WRAP_BANK, LDY)
 
-libRR_rOP8("ldy ", ACX1,     Absolute,                         WRAP_BANK, LDY)
-libRR_rOP16("ldy ", ACX0,     Absolute,                         WRAP_BANK, LDY16)
+libRR_rOP8("ldy", ACX1,     Absolute,                         WRAP_BANK, LDY)
+libRR_rOP16("ldy", ACX0,     Absolute,                         WRAP_BANK, LDY16)
 libRR_rOPX("ropX", ACSlow,   AbsoluteSlow,                     WRAP_BANK, LDY)
 
-libRR_rOP8("ldy ", BCX1,     AbsoluteIndexedXX1,               WRAP_BANK, LDY)
-libRR_rOP16("ldy ", BCX0,     AbsoluteIndexedXX0,               WRAP_BANK, LDY16)
+libRR_rOP8("ldy", BCX1,     AbsoluteIndexedXX1,               WRAP_BANK, LDY)
+libRR_rOP16("ldy", BCX0,     AbsoluteIndexedXX0,               WRAP_BANK, LDY16)
 libRR_rOPX("ropX", BCSlow,   AbsoluteIndexedXSlow,             WRAP_BANK, LDY)
 
 /* LSR ********************************************************************* */
@@ -1142,23 +1151,23 @@ static void Op4ASlow (void)
 	}
 }
 
-libRR_mOP8("lsr ", 46M1,     Direct,                           WRAP_BANK, LSR)
-libRR_mOP16("lsr ", 46M0,     Direct,                           WRAP_BANK, LSR)
+libRR_mOP8("lsr", 46M1,     Direct,                           WRAP_BANK, LSR)
+libRR_mOP16("lsr", 46M0,     Direct,                           WRAP_BANK, LSR)
 libRR_mOPM("lsr mopM", 46Slow,   DirectSlow,                       WRAP_BANK, LSR)
 
-libRR_mOP8("lsr ", 56E1,     DirectIndexedXE1,                 WRAP_BANK, LSR)
-libRR_mOP8("lsr ", 56E0M1,   DirectIndexedXE0,                 WRAP_BANK, LSR)
-libRR_mOP16("lsr ", 56E0M0,   DirectIndexedXE0,                 WRAP_BANK, LSR)
+libRR_mOP8("lsr", 56E1,     DirectIndexedXE1,                 WRAP_BANK, LSR)
+libRR_mOP8("lsr", 56E0M1,   DirectIndexedXE0,                 WRAP_BANK, LSR)
+libRR_mOP16("lsr", 56E0M0,   DirectIndexedXE0,                 WRAP_BANK, LSR)
 libRR_mOPM("lsr mopM", 56Slow,   DirectIndexedXSlow,               WRAP_BANK, LSR)
 
-libRR_mOP8("lsr ", 4EM1,     Absolute,                         WRAP_NONE, LSR)
-libRR_mOP16("lsr ", 4EM0,     Absolute,                         WRAP_NONE, LSR)
+libRR_mOP8("lsr", 4EM1,     Absolute,                         WRAP_NONE, LSR)
+libRR_mOP16("lsr", 4EM0,     Absolute,                         WRAP_NONE, LSR)
 libRR_mOPM("lsr mopM", 4ESlow,   AbsoluteSlow,                     WRAP_NONE, LSR)
 
-libRR_mOP8("lsr ", 5EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, LSR)
-libRR_mOP16("lsr ", 5EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, LSR)
-libRR_mOP8("lsr ", 5EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, LSR)
-libRR_mOP16("lsr ", 5EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, LSR)
+libRR_mOP8("lsr", 5EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, LSR)
+libRR_mOP16("lsr", 5EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, LSR)
+libRR_mOP8("lsr", 5EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, LSR)
+libRR_mOP16("lsr", 5EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, LSR)
 libRR_mOPM("lsr mopM", 5ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, LSR)
 
 /* ORA ********************************************************************* */
@@ -1167,7 +1176,7 @@ static void Op09M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
 	Registers.AL |= libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "ORA #%int%", 0x09, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "ORA.B #%int%", 0x09, 2, libRR_temp);
 	SetZN8(Registers.AL);
 }
 
@@ -1197,70 +1206,70 @@ static void Op09Slow (void)
 	}
 }
 
-libRR_rOP8("ora ", 05M1,     Direct,                           WRAP_BANK, ORA)
-libRR_rOP16("ora ", 05M0,     Direct,                           WRAP_BANK, ORA16)
+libRR_rOP8("ora", 05M1,     Direct,                           WRAP_BANK, ORA)
+libRR_rOP16("ora", 05M0,     Direct,                           WRAP_BANK, ORA16)
 libRR_rOPM( "ora ropm", 05Slow,   DirectSlow,                       WRAP_BANK, ORA)
 
 libRR_rOP8("ora ",15E1,     DirectIndexedXE1,                 WRAP_BANK, ORA)
 libRR_rOP8( "ora ",15E0M1,   DirectIndexedXE0,                 WRAP_BANK, ORA)
-libRR_rOP16("ora ", 15E0M0,   DirectIndexedXE0,                 WRAP_BANK, ORA16)
+libRR_rOP16("ora", 15E0M0,   DirectIndexedXE0,                 WRAP_BANK, ORA16)
 libRR_rOPM("ora ropm", 15Slow,   DirectIndexedXSlow,               WRAP_BANK, ORA)
 
-libRR_rOP8( "ora ", 12E1,     DirectIndirectE1,                 WRAP_NONE, ORA)
-libRR_rOP8("ora ", 12E0M1,   DirectIndirectE0,                 WRAP_NONE, ORA)
-libRR_rOP16("ora ", 12E0M0,   DirectIndirectE0,                 WRAP_NONE, ORA16)
+libRR_rOP8( "ora", 12E1,     DirectIndirectE1,                 WRAP_NONE, ORA)
+libRR_rOP8("ora", 12E0M1,   DirectIndirectE0,                 WRAP_NONE, ORA)
+libRR_rOP16("ora", 12E0M0,   DirectIndirectE0,                 WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 12Slow,   DirectIndirectSlow,               WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 01E1,     DirectIndexedIndirectE1,          WRAP_NONE, ORA)
-libRR_rOP8("ora ", 01E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, ORA)
-libRR_rOP16("ora ", 01E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, ORA16)
+libRR_rOP8("ora", 01E1,     DirectIndexedIndirectE1,          WRAP_NONE, ORA)
+libRR_rOP8("ora", 01E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, ORA)
+libRR_rOP16("ora", 01E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 01Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 11E1,     DirectIndirectIndexedE1,          WRAP_NONE, ORA)
-libRR_rOP8("ora ", 11E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ORA)
-libRR_rOP16("ora ", 11E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ORA16)
-libRR_rOP8("ora ", 11E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ORA)
-libRR_rOP16("ora ", 11E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ORA16)
+libRR_rOP8("ora", 11E1,     DirectIndirectIndexedE1,          WRAP_NONE, ORA)
+libRR_rOP8("ora", 11E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ORA)
+libRR_rOP16("ora", 11E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, ORA16)
+libRR_rOP8("ora", 11E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ORA)
+libRR_rOP16("ora", 11E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 11Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 07M1,     DirectIndirectLong,               WRAP_NONE, ORA)
-libRR_rOP16("ora ", 07M0,     DirectIndirectLong,               WRAP_NONE, ORA16)
+libRR_rOP8("ora", 07M1,     DirectIndirectLong,               WRAP_NONE, ORA)
+libRR_rOP16("ora", 07M0,     DirectIndirectLong,               WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 07Slow,   DirectIndirectLongSlow,           WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 17M1,     DirectIndirectIndexedLong,        WRAP_NONE, ORA)
-libRR_rOP16("ora ", 17M0,     DirectIndirectIndexedLong,        WRAP_NONE, ORA16)
+libRR_rOP8("ora", 17M1,     DirectIndirectIndexedLong,        WRAP_NONE, ORA)
+libRR_rOP16("ora", 17M0,     DirectIndirectIndexedLong,        WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 17Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 0DM1,     Absolute,                         WRAP_NONE, ORA)
-libRR_rOP16("ora ", 0DM0,     Absolute,                         WRAP_NONE, ORA16)
+libRR_rOP8("ora", 0DM1,     Absolute,                         WRAP_NONE, ORA)
+libRR_rOP16("ora", 0DM0,     Absolute,                         WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 0DSlow,   AbsoluteSlow,                     WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 1DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ORA)
-libRR_rOP16("ora ", 1DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ORA16)
-libRR_rOP8("ora ", 1DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ORA)
-libRR_rOP16("ora ", 1DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ORA16)
+libRR_rOP8("ora", 1DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ORA)
+libRR_rOP16("ora", 1DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ORA16)
+libRR_rOP8("ora", 1DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ORA)
+libRR_rOP16("ora", 1DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 1DSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 19M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, ORA)
-libRR_rOP16("ora ", 19M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, ORA16)
-libRR_rOP8("ora ", 19M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, ORA)
-libRR_rOP16("ora ", 19M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, ORA16)
+libRR_rOP8("ora", 19M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, ORA)
+libRR_rOP16("ora", 19M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, ORA16)
+libRR_rOP8("ora", 19M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, ORA)
+libRR_rOP16("ora", 19M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 19Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 0FM1,     AbsoluteLong,                     WRAP_NONE, ORA)
-libRR_rOP16("ora ", 0FM0,     AbsoluteLong,                     WRAP_NONE, ORA16)
+libRR_rOP8("ora", 0FM1,     AbsoluteLong,                     WRAP_NONE, ORA)
+libRR_rOP16("ora", 0FM0,     AbsoluteLong,                     WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 0FSlow,   AbsoluteLongSlow,                 WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 1FM1,     AbsoluteLongIndexedX,             WRAP_NONE, ORA)
-libRR_rOP16("ora ", 1FM0,     AbsoluteLongIndexedX,             WRAP_NONE, ORA16)
+libRR_rOP8("ora", 1FM1,     AbsoluteLongIndexedX,             WRAP_NONE, ORA)
+libRR_rOP16("ora", 1FM0,     AbsoluteLongIndexedX,             WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 1FSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 03M1,     StackRelative,                    WRAP_NONE, ORA)
-libRR_rOP16("ora ", 03M0,     StackRelative,                    WRAP_NONE, ORA16)
+libRR_rOP8("ora", 03M1,     StackRelative,                    WRAP_NONE, ORA)
+libRR_rOP16("ora", 03M0,     StackRelative,                    WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 03Slow,   StackRelativeSlow,                WRAP_NONE, ORA)
 
-libRR_rOP8("ora ", 13M1,     StackRelativeIndirectIndexed,     WRAP_NONE, ORA)
-libRR_rOP16("ora ", 13M0,     StackRelativeIndirectIndexed,     WRAP_NONE, ORA16)
+libRR_rOP8("ora", 13M1,     StackRelativeIndirectIndexed,     WRAP_NONE, ORA)
+libRR_rOP16("ora", 13M0,     StackRelativeIndirectIndexed,     WRAP_NONE, ORA16)
 libRR_rOPM("ora ropM", 13Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, ORA)
 
 /* ROL ********************************************************************* */
@@ -1308,23 +1317,23 @@ static void Op2ASlow (void)
 	}
 }
 
-libRR_mOP8("rol ", 26M1,     Direct,                           WRAP_BANK, ROL)
-libRR_mOP16("rol ", 26M0,     Direct,                           WRAP_BANK, ROL)
+libRR_mOP8("rol", 26M1,     Direct,                           WRAP_BANK, ROL)
+libRR_mOP16("rol", 26M0,     Direct,                           WRAP_BANK, ROL)
 libRR_mOPM("rol mopM", 26Slow,   DirectSlow,                       WRAP_BANK, ROL)
 
-libRR_mOP8("rol ", 36E1,     DirectIndexedXE1,                 WRAP_BANK, ROL)
-libRR_mOP8("rol ", 36E0M1,   DirectIndexedXE0,                 WRAP_BANK, ROL)
-libRR_mOP16("rol ", 36E0M0,   DirectIndexedXE0,                 WRAP_BANK, ROL)
+libRR_mOP8("rol", 36E1,     DirectIndexedXE1,                 WRAP_BANK, ROL)
+libRR_mOP8("rol", 36E0M1,   DirectIndexedXE0,                 WRAP_BANK, ROL)
+libRR_mOP16("rol", 36E0M0,   DirectIndexedXE0,                 WRAP_BANK, ROL)
 libRR_mOPM("rol mopM", 36Slow,   DirectIndexedXSlow,               WRAP_BANK, ROL)
 
-libRR_mOP8("rol ", 2EM1,     Absolute,                         WRAP_NONE, ROL)
-libRR_mOP16("rol ", 2EM0,     Absolute,                         WRAP_NONE, ROL)
+libRR_mOP8("rol", 2EM1,     Absolute,                         WRAP_NONE, ROL)
+libRR_mOP16("rol", 2EM0,     Absolute,                         WRAP_NONE, ROL)
 libRR_mOPM("rol mopM", 2ESlow,   AbsoluteSlow,                     WRAP_NONE, ROL)
 
-libRR_mOP8("rol ", 3EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROL)
-libRR_mOP16("rol ", 3EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROL)
-libRR_mOP8("rol ", 3EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROL)
-libRR_mOP16("rol ", 3EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROL)
+libRR_mOP8("rol", 3EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROL)
+libRR_mOP16("rol", 3EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROL)
+libRR_mOP8("rol", 3EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROL)
+libRR_mOP16("rol", 3EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROL)
 libRR_mOPM("rol mopM", 3ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, ROL)
 
 /* ROR ********************************************************************* */
@@ -1376,23 +1385,23 @@ static void Op6ASlow (void)
 	}
 }
 
-libRR_mOP8("ror ", 66M1,     Direct,                           WRAP_BANK, ROR)
-libRR_mOP16("ror ", 66M0,     Direct,                           WRAP_BANK, ROR)
+libRR_mOP8("ror", 66M1,     Direct,                           WRAP_BANK, ROR)
+libRR_mOP16("ror", 66M0,     Direct,                           WRAP_BANK, ROR)
 libRR_mOPM("ror mopM", 66Slow,   DirectSlow,                       WRAP_BANK, ROR)
 
-libRR_mOP8("ror ", 76E1,     DirectIndexedXE1,                 WRAP_BANK, ROR)
-libRR_mOP8("ror ", 76E0M1,   DirectIndexedXE0,                 WRAP_BANK, ROR)
-libRR_mOP16("ror ", 76E0M0,   DirectIndexedXE0,                 WRAP_BANK, ROR)
+libRR_mOP8("ror", 76E1,     DirectIndexedXE1,                 WRAP_BANK, ROR)
+libRR_mOP8("ror", 76E0M1,   DirectIndexedXE0,                 WRAP_BANK, ROR)
+libRR_mOP16("ror", 76E0M0,   DirectIndexedXE0,                 WRAP_BANK, ROR)
 libRR_mOPM("ror mopM", 76Slow,   DirectIndexedXSlow,               WRAP_BANK, ROR)
 
-libRR_mOP8("ror ", 6EM1,     Absolute,                         WRAP_NONE, ROR)
-libRR_mOP16("ror ", 6EM0,     Absolute,                         WRAP_NONE, ROR)
+libRR_mOP8("ror", 6EM1,     Absolute,                         WRAP_NONE, ROR)
+libRR_mOP16("ror", 6EM0,     Absolute,                         WRAP_NONE, ROR)
 libRR_mOPM("ror mopM", 6ESlow,   AbsoluteSlow,                     WRAP_NONE, ROR)
 
-libRR_mOP8("ror ", 7EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROR)
-libRR_mOP16("ror ", 7EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROR)
-libRR_mOP8("ror ", 7EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROR)
-libRR_mOP16("ror ", 7EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROR)
+libRR_mOP8("ror", 7EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROR)
+libRR_mOP16("ror", 7EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, ROR)
+libRR_mOP8("ror", 7EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROR)
+libRR_mOP16("ror", 7EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, ROR)
 libRR_mOPM("ror mopM", 7ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, ROR)
 
 /* SBC ********************************************************************* */
@@ -1400,7 +1409,7 @@ libRR_mOPM("ror mopM", 7ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, RO
 static void OpE9M1 (void)
 {
 	uint32 libRR_temp = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "SBC #%int%", 0xE9, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "SBC.B #%int%", 0xE9, 2, libRR_temp);
 	SBC8(libRR_temp);
 }
 
@@ -1427,209 +1436,209 @@ static void OpE9Slow (void)
 		}
 }
 
-libRR_rOP8("sbc ", E5M1,     Direct,                           WRAP_BANK, SBC)
-libRR_rOP16("sbc ", E5M0,     Direct,                           WRAP_BANK, SBC16)
+libRR_rOP8("sbc", E5M1,     Direct,                           WRAP_BANK, SBC)
+libRR_rOP16("sbc", E5M0,     Direct,                           WRAP_BANK, SBC16)
 libRR_rOPM("sbc ropM", E5Slow,   DirectSlow,                       WRAP_BANK, SBC)
 
-libRR_rOP8("sbc ", F5E1,     DirectIndexedXE1,                 WRAP_BANK, SBC)
-libRR_rOP8("sbc ", F5E0M1,   DirectIndexedXE0,                 WRAP_BANK, SBC)
-libRR_rOP16("sbc ", F5E0M0,   DirectIndexedXE0,                 WRAP_BANK, SBC16)
+libRR_rOP8("sbc", F5E1,     DirectIndexedXE1,                 WRAP_BANK, SBC)
+libRR_rOP8("sbc", F5E0M1,   DirectIndexedXE0,                 WRAP_BANK, SBC)
+libRR_rOP16("sbc", F5E0M0,   DirectIndexedXE0,                 WRAP_BANK, SBC16)
 libRR_rOPM("sbc ropM", F5Slow,   DirectIndexedXSlow,               WRAP_BANK, SBC)
 
-libRR_rOP8("sbc ", F2E1,     DirectIndirectE1,                 WRAP_NONE, SBC)
-libRR_rOP8("sbc ", F2E0M1,   DirectIndirectE0,                 WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F2E0M0,   DirectIndirectE0,                 WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F2E1,     DirectIndirectE1,                 WRAP_NONE, SBC)
+libRR_rOP8("sbc", F2E0M1,   DirectIndirectE0,                 WRAP_NONE, SBC)
+libRR_rOP16("sbc", F2E0M0,   DirectIndirectE0,                 WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", F2Slow,   DirectIndirectSlow,               WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", E1E1,     DirectIndexedIndirectE1,          WRAP_NONE, SBC)
-libRR_rOP8("sbc ", E1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, SBC)
-libRR_rOP16("sbc ", E1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, SBC16)
+libRR_rOP8("sbc", E1E1,     DirectIndexedIndirectE1,          WRAP_NONE, SBC)
+libRR_rOP8("sbc", E1E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, SBC)
+libRR_rOP16("sbc", E1E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", E1Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", F1E1,     DirectIndirectIndexedE1,          WRAP_NONE, SBC)
-libRR_rOP8("sbc ", F1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, SBC16)
-libRR_rOP8("sbc ", F1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F1E1,     DirectIndirectIndexedE1,          WRAP_NONE, SBC)
+libRR_rOP8("sbc", F1E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, SBC)
+libRR_rOP16("sbc", F1E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F1E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, SBC)
+libRR_rOP16("sbc", F1E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", F1Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", E7M1,     DirectIndirectLong,               WRAP_NONE, SBC)
-libRR_rOP16("sbc ", E7M0,     DirectIndirectLong,               WRAP_NONE, SBC16)
+libRR_rOP8("sbc", E7M1,     DirectIndirectLong,               WRAP_NONE, SBC)
+libRR_rOP16("sbc", E7M0,     DirectIndirectLong,               WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", E7Slow,   DirectIndirectLongSlow,           WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", F7M1,     DirectIndirectIndexedLong,        WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F7M0,     DirectIndirectIndexedLong,        WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F7M1,     DirectIndirectIndexedLong,        WRAP_NONE, SBC)
+libRR_rOP16("sbc", F7M0,     DirectIndirectIndexedLong,        WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", F7Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", EDM1,     Absolute,                         WRAP_NONE, SBC)
-libRR_rOP16("sbc ", EDM0,     Absolute,                         WRAP_NONE, SBC16)
+libRR_rOP8("sbc", EDM1,     Absolute,                         WRAP_NONE, SBC)
+libRR_rOP16("sbc", EDM0,     Absolute,                         WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", EDSlow,   AbsoluteSlow,                     WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", FDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, SBC)
-libRR_rOP16("sbc ", FDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, SBC16)
-libRR_rOP8("sbc ", FDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, SBC)
-libRR_rOP16("sbc ", FDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, SBC16)
+libRR_rOP8("sbc", FDM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, SBC)
+libRR_rOP16("sbc", FDM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, SBC16)
+libRR_rOP8("sbc", FDM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, SBC)
+libRR_rOP16("sbc", FDM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", FDSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", F9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, SBC16)
-libRR_rOP8("sbc ", F9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F9M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, SBC)
+libRR_rOP16("sbc", F9M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F9M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, SBC)
+libRR_rOP16("sbc", F9M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", F9Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", EFM1,     AbsoluteLong,                     WRAP_NONE, SBC)
-libRR_rOP16("sbc ", EFM0,     AbsoluteLong,                     WRAP_NONE, SBC16)
+libRR_rOP8("sbc", EFM1,     AbsoluteLong,                     WRAP_NONE, SBC)
+libRR_rOP16("sbc", EFM0,     AbsoluteLong,                     WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", EFSlow,   AbsoluteLongSlow,                 WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", FFM1,     AbsoluteLongIndexedX,             WRAP_NONE, SBC)
-libRR_rOP16("sbc ", FFM0,     AbsoluteLongIndexedX,             WRAP_NONE, SBC16)
+libRR_rOP8("sbc", FFM1,     AbsoluteLongIndexedX,             WRAP_NONE, SBC)
+libRR_rOP16("sbc", FFM0,     AbsoluteLongIndexedX,             WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", FFSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", E3M1,     StackRelative,                    WRAP_NONE, SBC)
-libRR_rOP16("sbc ", E3M0,     StackRelative,                    WRAP_NONE, SBC16)
+libRR_rOP8("sbc", E3M1,     StackRelative,                    WRAP_NONE, SBC)
+libRR_rOP16("sbc", E3M0,     StackRelative,                    WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", E3Slow,   StackRelativeSlow,                WRAP_NONE, SBC)
 
-libRR_rOP8("sbc ", F3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, SBC)
-libRR_rOP16("sbc ", F3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, SBC16)
+libRR_rOP8("sbc", F3M1,     StackRelativeIndirectIndexed,     WRAP_NONE, SBC)
+libRR_rOP16("sbc", F3M0,     StackRelativeIndirectIndexed,     WRAP_NONE, SBC16)
 libRR_rOPM("sbc ropM", F3Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, SBC)
 
 /* STA ********************************************************************* */
 
-libRR_wOP8 ("sta ", 85M1,     Direct,                           WRAP_BANK, STA)
-libRR_wOP16("sta ", 85M0,     Direct,                           WRAP_BANK, STA)
+libRR_wOP8 ("sta", 85M1,     Direct,                           WRAP_BANK, STA)
+libRR_wOP16("sta", 85M0,     Direct,                           WRAP_BANK, STA)
 libRR_wOPX("sta wopM", 85Slow,   DirectSlow,                       WRAP_BANK, STA)
 
-libRR_wOP8 ("sta ", 95E1,     DirectIndexedXE1,                 WRAP_BANK, STA)
-libRR_wOP8 ("sta ", 95E0M1,   DirectIndexedXE0,                 WRAP_BANK, STA)
-libRR_wOP16("sta ", 95E0M0,   DirectIndexedXE0,                 WRAP_BANK, STA)
+libRR_wOP8 ("sta", 95E1,     DirectIndexedXE1,                 WRAP_BANK, STA)
+libRR_wOP8 ("sta", 95E0M1,   DirectIndexedXE0,                 WRAP_BANK, STA)
+libRR_wOP16("sta", 95E0M0,   DirectIndexedXE0,                 WRAP_BANK, STA)
 libRR_wOPX("sta wopM", 95Slow,   DirectIndexedXSlow,               WRAP_BANK, STA)
 
-libRR_wOP8 ("sta ", 92E1,     DirectIndirectE1,                 WRAP_NONE, STA)
-libRR_wOP8 ("sta ", 92E0M1,   DirectIndirectE0,                 WRAP_NONE, STA)
-libRR_wOP16("sta ", 92E0M0,   DirectIndirectE0,                 WRAP_NONE, STA)
+libRR_wOP8 ("sta", 92E1,     DirectIndirectE1,                 WRAP_NONE, STA)
+libRR_wOP8 ("sta", 92E0M1,   DirectIndirectE0,                 WRAP_NONE, STA)
+libRR_wOP16("sta", 92E0M0,   DirectIndirectE0,                 WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 92Slow,   DirectIndirectSlow,               WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 81E1,     DirectIndexedIndirectE1,          WRAP_NONE, STA)
-libRR_wOP8 ("sta ", 81E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, STA)
-libRR_wOP16("sta ", 81E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, STA)
+libRR_wOP8 ("sta", 81E1,     DirectIndexedIndirectE1,          WRAP_NONE, STA)
+libRR_wOP8 ("sta", 81E0M1,   DirectIndexedIndirectE0,          WRAP_NONE, STA)
+libRR_wOP16("sta", 81E0M0,   DirectIndexedIndirectE0,          WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 81Slow,   DirectIndexedIndirectSlow,        WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 91E1,     DirectIndirectIndexedE1,          WRAP_NONE, STA)
-libRR_wOP8 ("sta ", 91E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, STA)
-libRR_wOP16("sta ", 91E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, STA)
-libRR_wOP8 ("sta ", 91E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, STA)
-libRR_wOP16("sta ", 91E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, STA)
+libRR_wOP8 ("sta", 91E1,     DirectIndirectIndexedE1,          WRAP_NONE, STA)
+libRR_wOP8 ("sta", 91E0M1X1, DirectIndirectIndexedE0X1,        WRAP_NONE, STA)
+libRR_wOP16("sta", 91E0M0X1, DirectIndirectIndexedE0X1,        WRAP_NONE, STA)
+libRR_wOP8 ("sta", 91E0M1X0, DirectIndirectIndexedE0X0,        WRAP_NONE, STA)
+libRR_wOP16("sta", 91E0M0X0, DirectIndirectIndexedE0X0,        WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 91Slow,   DirectIndirectIndexedSlow,        WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 87M1,     DirectIndirectLong,               WRAP_NONE, STA)
-libRR_wOP16("sta ", 87M0,     DirectIndirectLong,               WRAP_NONE, STA)
+libRR_wOP8 ("sta", 87M1,     DirectIndirectLong,               WRAP_NONE, STA)
+libRR_wOP16("sta", 87M0,     DirectIndirectLong,               WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 87Slow,   DirectIndirectLongSlow,           WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 97M1,     DirectIndirectIndexedLong,        WRAP_NONE, STA)
-libRR_wOP16("sta ", 97M0,     DirectIndirectIndexedLong,        WRAP_NONE, STA)
+libRR_wOP8 ("sta", 97M1,     DirectIndirectIndexedLong,        WRAP_NONE, STA)
+libRR_wOP16("sta", 97M0,     DirectIndirectIndexedLong,        WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 97Slow,   DirectIndirectIndexedLongSlow,    WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 8DM1,     Absolute,                         WRAP_NONE, STA)
-libRR_wOP16("sta ", 8DM0,     Absolute,                         WRAP_NONE, STA)
+libRR_wOP8 ("sta", 8DM1,     Absolute,                         WRAP_NONE, STA)
+libRR_wOP16("sta", 8DM0,     Absolute,                         WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 8DSlow,   AbsoluteSlow,                     WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 9DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, STA)
-libRR_wOP16("sta ", 9DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, STA)
-libRR_wOP8 ("sta ", 9DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, STA)
-libRR_wOP16("sta ", 9DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, STA)
+libRR_wOP8 ("sta", 9DM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, STA)
+libRR_wOP16("sta", 9DM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, STA)
+libRR_wOP8 ("sta", 9DM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, STA)
+libRR_wOP16("sta", 9DM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 9DSlow,   AbsoluteIndexedXSlow,             WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 99M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, STA)
-libRR_wOP16("sta ", 99M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, STA)
-libRR_wOP8 ("sta ", 99M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, STA)
-libRR_wOP16("sta ", 99M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, STA)
+libRR_wOP8 ("sta", 99M1X1,   AbsoluteIndexedYX1,               WRAP_NONE, STA)
+libRR_wOP16("sta", 99M0X1,   AbsoluteIndexedYX1,               WRAP_NONE, STA)
+libRR_wOP8 ("sta", 99M1X0,   AbsoluteIndexedYX0,               WRAP_NONE, STA)
+libRR_wOP16("sta", 99M0X0,   AbsoluteIndexedYX0,               WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 99Slow,   AbsoluteIndexedYSlow,             WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 8FM1,     AbsoluteLong,                     WRAP_NONE, STA)
-libRR_wOP16("sta ", 8FM0,     AbsoluteLong,                     WRAP_NONE, STA)
+libRR_wOP8 ("sta", 8FM1,     AbsoluteLong,                     WRAP_NONE, STA)
+libRR_wOP16("sta", 8FM0,     AbsoluteLong,                     WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 8FSlow,   AbsoluteLongSlow,                 WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 9FM1,     AbsoluteLongIndexedX,             WRAP_NONE, STA)
-libRR_wOP16("sta ", 9FM0,     AbsoluteLongIndexedX,             WRAP_NONE, STA)
+libRR_wOP8 ("sta", 9FM1,     AbsoluteLongIndexedX,             WRAP_NONE, STA)
+libRR_wOP16("sta", 9FM0,     AbsoluteLongIndexedX,             WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 9FSlow,   AbsoluteLongIndexedXSlow,         WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 83M1,     StackRelative,                    WRAP_NONE, STA)
-libRR_wOP16("sta ", 83M0,     StackRelative,                    WRAP_NONE, STA)
+libRR_wOP8 ("sta", 83M1,     StackRelative,                    WRAP_NONE, STA)
+libRR_wOP16("sta", 83M0,     StackRelative,                    WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 83Slow,   StackRelativeSlow,                WRAP_NONE, STA)
 
-libRR_wOP8 ("sta ", 93M1,     StackRelativeIndirectIndexed,     WRAP_NONE, STA)
-libRR_wOP16("sta ", 93M0,     StackRelativeIndirectIndexed,     WRAP_NONE, STA)
+libRR_wOP8 ("sta", 93M1,     StackRelativeIndirectIndexed,     WRAP_NONE, STA)
+libRR_wOP16("sta", 93M0,     StackRelativeIndirectIndexed,     WRAP_NONE, STA)
 libRR_wOPX("sta wopM", 93Slow,   StackRelativeIndirectIndexedSlow, WRAP_NONE, STA)
 
 /* STX ********************************************************************* */
 
-libRR_wOP8 ("stx ", 86X1,     Direct,                           WRAP_BANK, STX)
-libRR_wOP16("stx ", 86X0,     Direct,                           WRAP_BANK, STX)
+libRR_wOP8 ("stx", 86X1,     Direct,                           WRAP_BANK, STX)
+libRR_wOP16("stx", 86X0,     Direct,                           WRAP_BANK, STX)
 libRR_wOPX("stx wopX", 86Slow,   DirectSlow,                       WRAP_BANK, STX)
 
-libRR_wOP8 ("stx ", 96E1,     DirectIndexedYE1,                 WRAP_BANK, STX)
-libRR_wOP8 ("stx ", 96E0X1,   DirectIndexedYE0,                 WRAP_BANK, STX)
-libRR_wOP16("stx ", 96E0X0,   DirectIndexedYE0,                 WRAP_BANK, STX)
+libRR_wOP8 ("stx", 96E1,     DirectIndexedYE1,                 WRAP_BANK, STX)
+libRR_wOP8 ("stx", 96E0X1,   DirectIndexedYE0,                 WRAP_BANK, STX)
+libRR_wOP16("stx", 96E0X0,   DirectIndexedYE0,                 WRAP_BANK, STX)
 libRR_wOPX("stx wopX", 96Slow,   DirectIndexedYSlow,               WRAP_BANK, STX)
 
-libRR_wOP8 ("stx ", 8EX1,     Absolute,                         WRAP_BANK, STX)
-libRR_wOP16("stx ", 8EX0,     Absolute,                         WRAP_BANK, STX)
+libRR_wOP8 ("stx", 8EX1,     Absolute,                         WRAP_BANK, STX)
+libRR_wOP16("stx", 8EX0,     Absolute,                         WRAP_BANK, STX)
 libRR_wOPX("stx wopX", 8ESlow,   AbsoluteSlow,                     WRAP_BANK, STX)
 
 /* STY ********************************************************************* */
 
-libRR_wOP8 ("sty ", 84X1,     Direct,                           WRAP_BANK, STY)
-libRR_wOP16("sty ", 84X0,     Direct,                           WRAP_BANK, STY)
+libRR_wOP8 ("sty", 84X1,     Direct,                           WRAP_BANK, STY)
+libRR_wOP16("sty", 84X0,     Direct,                           WRAP_BANK, STY)
 libRR_wOPX("sty wopX", 84Slow,   DirectSlow,                       WRAP_BANK, STY)
 
-libRR_wOP8 ("sty ", 94E1,     DirectIndexedXE1,                 WRAP_BANK, STY)
-libRR_wOP8 ("sty ", 94E0X1,   DirectIndexedXE0,                 WRAP_BANK, STY)
-libRR_wOP16("sty ", 94E0X0,   DirectIndexedXE0,                 WRAP_BANK, STY)
+libRR_wOP8 ("sty", 94E1,     DirectIndexedXE1,                 WRAP_BANK, STY)
+libRR_wOP8 ("sty", 94E0X1,   DirectIndexedXE0,                 WRAP_BANK, STY)
+libRR_wOP16("sty", 94E0X0,   DirectIndexedXE0,                 WRAP_BANK, STY)
 libRR_wOPX("sty wopX", 94Slow,   DirectIndexedXSlow,               WRAP_BANK, STY)
 
-libRR_wOP8 ("sty ", 8CX1,     Absolute,                         WRAP_BANK, STY)
-libRR_wOP16("sty ", 8CX0,     Absolute,                         WRAP_BANK, STY)
+libRR_wOP8 ("sty", 8CX1,     Absolute,                         WRAP_BANK, STY)
+libRR_wOP16("sty", 8CX0,     Absolute,                         WRAP_BANK, STY)
 libRR_wOPX("sty wopX", 8CSlow,   AbsoluteSlow,                     WRAP_BANK, STY)
 
 /* STZ ********************************************************************* */
 
-libRR_wOP8 ("stz ", 64M1,     Direct,                           WRAP_BANK, STZ)
-libRR_wOP16("stz ", 64M0,     Direct,                           WRAP_BANK, STZ)
+libRR_wOP8 ("stz", 64M1,     Direct,                           WRAP_BANK, STZ)
+libRR_wOP16("stz", 64M0,     Direct,                           WRAP_BANK, STZ)
 libRR_wOPX("stz wopM", 64Slow,   DirectSlow,                       WRAP_BANK, STZ)
 
-libRR_wOP8 ("stz ", 74E1,     DirectIndexedXE1,                 WRAP_BANK, STZ)
-libRR_wOP8 ("stz ", 74E0M1,   DirectIndexedXE0,                 WRAP_BANK, STZ)
-libRR_wOP16("stz ", 74E0M0,   DirectIndexedXE0,                 WRAP_BANK, STZ)
+libRR_wOP8 ("stz", 74E1,     DirectIndexedXE1,                 WRAP_BANK, STZ)
+libRR_wOP8 ("stz", 74E0M1,   DirectIndexedXE0,                 WRAP_BANK, STZ)
+libRR_wOP16("stz", 74E0M0,   DirectIndexedXE0,                 WRAP_BANK, STZ)
 libRR_wOPX("stz wopM", 74Slow,   DirectIndexedXSlow,               WRAP_BANK, STZ)
 
-libRR_wOP8 ("stz ", 9CM1,     Absolute,                         WRAP_NONE, STZ)
-libRR_wOP16("stz ", 9CM0,     Absolute,                         WRAP_NONE, STZ)
+libRR_wOP8 ("stz", 9CM1,     Absolute,                         WRAP_NONE, STZ)
+libRR_wOP16("stz", 9CM0,     Absolute,                         WRAP_NONE, STZ)
 libRR_wOPX("stz wopM", 9CSlow,   AbsoluteSlow,                     WRAP_NONE, STZ)
 
-libRR_wOP8 ("stz ", 9EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, STZ)
-libRR_wOP16("stz ", 9EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, STZ)
-libRR_wOP8 ("stz ", 9EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, STZ)
-libRR_wOP16("stz ", 9EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, STZ)
+libRR_wOP8 ("stz", 9EM1X1,   AbsoluteIndexedXX1,               WRAP_NONE, STZ)
+libRR_wOP16("stz", 9EM0X1,   AbsoluteIndexedXX1,               WRAP_NONE, STZ)
+libRR_wOP8 ("stz", 9EM1X0,   AbsoluteIndexedXX0,               WRAP_NONE, STZ)
+libRR_wOP16("stz", 9EM0X0,   AbsoluteIndexedXX0,               WRAP_NONE, STZ)
 libRR_wOPX("stz wopM", 9ESlow,   AbsoluteIndexedXSlow,             WRAP_NONE, STZ)
 
 /* TRB ********************************************************************* */
 
-libRR_mOP8("trb ", 14M1,     Direct,                           WRAP_BANK, TRB)
-libRR_mOP16("trb ", 14M0,     Direct,                           WRAP_BANK, TRB)
+libRR_mOP8("trb", 14M1,     Direct,                           WRAP_BANK, TRB)
+libRR_mOP16("trb", 14M0,     Direct,                           WRAP_BANK, TRB)
 libRR_mOPM("trb mopM", 14Slow,   DirectSlow,                       WRAP_BANK, TRB)
 
-libRR_mOP8("trb ", 1CM1,     Absolute,                         WRAP_BANK, TRB)
-libRR_mOP16("trb ", 1CM0,     Absolute,                         WRAP_BANK, TRB)
+libRR_mOP8("trb", 1CM1,     Absolute,                         WRAP_BANK, TRB)
+libRR_mOP16("trb", 1CM0,     Absolute,                         WRAP_BANK, TRB)
 libRR_mOPM("trb mopM", 1CSlow,   AbsoluteSlow,                     WRAP_BANK, TRB)
 
 /* TSB ********************************************************************* */
 
-libRR_mOP8("tsb ", 04M1,     Direct,                           WRAP_BANK, TSB)
-libRR_mOP16("tsb ", 04M0,     Direct,                           WRAP_BANK, TSB)
+libRR_mOP8("tsb", 04M1,     Direct,                           WRAP_BANK, TSB)
+libRR_mOP16("tsb", 04M0,     Direct,                           WRAP_BANK, TSB)
 libRR_mOPM("tsb mopM", 04Slow,   DirectSlow,                       WRAP_BANK, TSB)
 
-libRR_mOP8("tsb ", 0CM1,     Absolute,                         WRAP_BANK, TSB)
-libRR_mOP16("tsb ", 0CM0,     Absolute,                         WRAP_BANK, TSB)
+libRR_mOP8("tsb", 0CM1,     Absolute,                         WRAP_BANK, TSB)
+libRR_mOP16("tsb", 0CM0,     Absolute,                         WRAP_BANK, TSB)
 libRR_mOPM("tsb mopM", 0CSlow,   AbsoluteSlow,                     WRAP_BANK, TSB)
 
 /* Branch Instructions ***************************************************** */
@@ -1682,13 +1691,13 @@ libRR_bOP("bvs %r%", 70Slow, RelativeSlow,  CheckOverflow(), 0, CheckEmulation()
 /* BRL*/
 static void Op82 (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "BRL", 0x82, 1);
+	libRR_log_instruction(Registers.PCw - 1, "BRL relativelong", 0x82, 1);
 	S9xSetPCBase(ICPU.ShiftedPB + RelativeLong(JUMP));
 }
 
 static void Op82Slow (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "BRL", 0x82, 1);
+	libRR_log_instruction(Registers.PCw - 1, "BRL slow", 0x82, 1);
 	S9xSetPCBase(ICPU.ShiftedPB + RelativeLongSlow(JUMP));
 }
 
@@ -2910,7 +2919,7 @@ static void Op00 (void)
 {
 	uint16 addr;
 	AddCycles(CPU.MemSpeed);
-	libRR_log_instruction(Registers.PCw - 1, "BRK", 0x00, 1);
+	libRR_log_instruction(Registers.PCw - 1, "BRK", 0x00, 2);
 
 	if (!CheckEmulation())
 	{
@@ -2944,6 +2953,7 @@ static void Op00 (void)
 
 void S9xOpcode_IRQ (void)
 {
+	printf("IRQ\n");
 	libRR_log_instruction(Registers.PCw - 1, "IRQ", 0x00, 1);
 	/* IRQ and NMI do an opcode fetch as their first "IO" cycle.*/
 	AddCycles(CPU.MemSpeed + ONE_CYCLE);
@@ -3014,6 +3024,7 @@ void S9xOpcode_NMI (void)
 	// libRR_log_instruction(Registers.PCw - 1, "NMI", 0x00, 1);
 	/* IRQ and NMI do an opcode fetch as their first "IO" cycle.*/
 	AddCycles(CPU.MemSpeed + ONE_CYCLE);
+	printf("NMI \n");
 
 	if (!CheckEmulation())
 	{
@@ -3078,7 +3089,7 @@ void S9xOpcode_NMI (void)
 
 static void Op02 (void)
 {
-	libRR_log_instruction(Registers.PCw - 1, "COP", 0x02, 1);
+	libRR_log_instruction(Registers.PCw - 1, "COP", 0x02, 2);
 	uint16 addr;
 	AddCycles(CPU.MemSpeed);
 
@@ -3115,7 +3126,7 @@ static void Op02 (void)
 static void OpDC (void)
 {
 	uint32 current_pc = Registers.PCw - 1;
-	libRR_log_instruction_1int(current_pc, "jml [%int%]", 0xdc, 2, READ_WORD(CPU.PCBase + Registers.PCw));
+	libRR_log_instruction_1int(current_pc, "jml [%int%]", 0xdc, 3, READ_WORD(CPU.PCBase + Registers.PCw));
 	uint32 libRR_temp = AbsoluteIndirectLong(JUMP);
 	S9xSetPCBase(libRR_temp);
 	libRR_log_long_jump(current_pc, (uint16)libRR_temp, "jmlDc");
@@ -3124,12 +3135,13 @@ static void OpDC (void)
 static void OpDCSlow (void)
 {
 	uint32 current_pc = Registers.PCw - 1;
-	libRR_log_instruction_1int(current_pc, "jml [%int%]", 0xdc, 2, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	libRR_log_instruction_1int(current_pc, "jml [%int%]", 0xdc, 3, S9xGetWord(Registers.PBPC, WRAP_BANK));
 	uint32 libRR_temp = AbsoluteIndirectLongSlow(JUMP);
 	S9xSetPCBase(libRR_temp);
 	libRR_log_long_jump(current_pc, libRR_temp, "jmlDcSlow");
 }
 
+// 0x5C Absolute jump are 4 bytes
 static void Op5C (void)
 {
 	libRR_log_instruction_1int(Registers.PCw - 1, "JML %int%", 0x5c, 4, READ_3WORD(CPU.PCBase + Registers.PCw));
@@ -3151,7 +3163,7 @@ static void Op5CSlow (void)
 static void Op4C (void)
 {
 	uint32 libRR_temp = READ_WORD(CPU.PCBase + Registers.PCw);
-	libRR_log_instruction_1int(Registers.PCw - 1, "jmp %int%", 0x4c, 1, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp %int%", 0x4c, 3, libRR_temp);
 	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp4c");
 	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) ABSOLUTE_MACRO(JUMP)));
 }
@@ -3159,14 +3171,14 @@ static void Op4C (void)
 static void Op4CSlow (void)
 {
 	uint32 libRR_temp = S9xGetWord(Registers.PBPC, WRAP_BANK);
-	libRR_log_instruction_1int(Registers.PCw - 1, "jmp %int%", 0x4c, 1, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp %int%", 0x4c, 3, libRR_temp);
 	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp4cSlow");
 	S9xSetPCBase(ICPU.ShiftedPB + ((uint16) ABSOLUTESLOW_MACRO(JUMP)));
 }
 
 static void Op6C (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%)", 0x6c, 1, READ_WORD(CPU.PCBase + Registers.PCw));
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%)", 0x6c, 3, READ_WORD(CPU.PCBase + Registers.PCw));
 	uint16 libRR_temp = (uint16) AbsoluteIndirect(JUMP);
 	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp6c");
 	S9xSetPCBase(ICPU.ShiftedPB + ( libRR_temp));
@@ -3174,7 +3186,7 @@ static void Op6C (void)
 
 static void Op6CSlow (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%)", 0x6c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%)", 0x6c, 3, S9xGetWord(Registers.PBPC, WRAP_BANK));
 	uint16 libRR_temp = (uint16) AbsoluteIndirectSlow(JUMP);
 	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp6cSlow");
 	S9xSetPCBase(ICPU.ShiftedPB + (libRR_temp ));
@@ -3182,7 +3194,7 @@ static void Op6CSlow (void)
 
 static void Op7C (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%,X)", 0x7c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%,X)", 0x7c, 3, S9xGetWord(Registers.PBPC, WRAP_BANK));
 	uint16 libRR_temp = (uint16) AbsoluteIndexedIndirect(JUMP);
 	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp7c");
 	S9xSetPCBase(ICPU.ShiftedPB + (libRR_temp));
@@ -3190,7 +3202,7 @@ static void Op7C (void)
 
 static void Op7CSlow (void)
 {
-	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%,X)", 0x7c, 1, S9xGetWord(Registers.PBPC, WRAP_BANK));
+	libRR_log_instruction_1int(Registers.PCw - 1, "jmp (%int%,X)", 0x7c, 3, S9xGetWord(Registers.PBPC, WRAP_BANK));
 	uint16 libRR_temp = (uint16) AbsoluteIndexedIndirectSlow(JUMP);
 	libRR_log_long_jump(Registers.PCw - 1, libRR_temp, "jmp7cSlow");
 	S9xSetPCBase(ICPU.ShiftedPB + (libRR_temp));
@@ -3538,7 +3550,7 @@ static void OpC2 (void)
 {
 	uint8 libRR_temp = Immediate8(READ);
 	uint8	Work8 = ~libRR_temp;
-	libRR_log_instruction_1int(Registers.PCw - 2, "rep #%int%", 0xc2, 2, libRR_temp);
+	libRR_log_instruction_1int(Registers.PCw - 2, "rep.b #%int% ;Immediate8", 0xc2, 2, libRR_temp);
 	Registers.PL &= Work8;
 	ICPU._Carry &= Work8;
 	ICPU._Overflow &= (Work8 >> 6);
@@ -3591,7 +3603,7 @@ static void OpC2Slow (void)
 static void OpE2 (void)
 {
 	uint8	Work8 = Immediate8(READ);
-	libRR_log_instruction_1int(Registers.PCw - 2, "sep #%int%", 0xe2, 2, Work8);
+	libRR_log_instruction_1int(Registers.PCw - 2, "sep.b #%int%; Immediate8", 0xe2, 2, Work8);
 	Registers.PL |= Work8;
 	ICPU._Carry |= Work8 & 1;
 	ICPU._Overflow |= (Work8 >> 6) & 1;
